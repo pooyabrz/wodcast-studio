@@ -1,0 +1,2932 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Your local workout studio: live timers, custom branding and a transparent streaming overlay.">
+    <title>WODCAST | Interactive Preview</title>
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJXT0RDQVNUIGxvZ28iPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcng9IjIyIiBmaWxsPSIjYjBmMTViIi8+PHBhdGggZD0iTTE3IDIzaDExbDYgMjUgNi0xOWg4bDYgMTkgNy0yNWgxMEw1OSA1OUg0OGwtNS0xNy02IDE3SDI2eiIgZmlsbD0iIzE0MjAxOSIvPjxjaXJjbGUgY3g9IjYxIiBjeT0iMTciIHI9IjQiIGZpbGw9IiMxNDIwMTkiLz48L3N2Zz4K">
+    <style>:root {
+  color-scheme: light;
+  --lime: #b0f15b;
+  --ink: #17251c;
+  --muted: #86917e;
+  --line: #e4eade;
+  --paper: #f4f6f0;
+  font-family: Arial,Helvetica,sans-serif;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+}
+
+button,input,select,textarea {
+  font: inherit;
+}
+
+button,a,input,select,textarea {
+  touch-action: manipulation;
+}
+
+button {
+  cursor: pointer;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button:disabled,input:disabled,select:disabled,textarea:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible {
+  outline: 3px solid #8cb350;
+  outline-offset: 3px;
+}
+
+svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+[hidden] {
+  display: none!important;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 224px;
+  background: #14211b;
+  color: #c7d3c9;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 19px;
+  z-index: 10;
+}
+
+.wordmark {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  margin: 0 7px 45px;
+}
+
+.wordmark img {
+  width: 43px;
+  height: 43px;
+}
+
+.wordmark>span {
+  font-size: 19px;
+  letter-spacing: -.5px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.wordmark small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: #8fa093;
+  margin-top: 7px;
+}
+
+.nav-caption {
+  font-size: 9px;
+  letter-spacing: 1.8px;
+  color: #7b9080;
+  margin: 0 13px 14px;
+}
+
+.sidebar nav {
+  display: grid;
+  gap: 7px;
+}
+
+.nav-item {
+  height: 47px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #97aa9a;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 15px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: #213226;
+  color: #fff;
+}
+
+.nav-item.active {
+  background: var(--lime);
+  color: #17251b;
+  font-weight: 700;
+}
+
+.nav-dot {
+  margin-left: auto;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #263d22;
+}
+
+.session-card {
+  border: 1px solid #304136;
+  border-radius: 13px;
+  margin: 36px 4px 0;
+  padding: 18px 15px;
+  background: linear-gradient(140deg,#223329,#17271e);
+}
+
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 1.8px;
+  font-weight: 700;
+  display: block;
+}
+
+.session-card .eyebrow {
+  color: #8eaa8d;
+  font-size: 8px;
+}
+
+.session-card strong {
+  display: block;
+  font-size: 13px;
+  letter-spacing: .7px;
+  color: #ecf3e9;
+  margin: 12px 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.session-card>span:not(.eyebrow) {
+  font-size: 10px;
+  color: #a9c297;
+}
+
+.session-line {
+  height: 3px;
+  background: #34463a;
+  margin: 17px 0;
+  border-radius: 2px;
+}
+
+.session-line i {
+  display: block;
+  height: 100%;
+  width: 32%;
+  background: var(--lime);
+}
+
+.session-card small {
+  color: #83998a;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 30px 12px 0;
+}
+
+.local-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #c0d7ba;
+  margin-bottom: 12px;
+}
+
+.local-badge i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+.sidebar-footer small {
+  font-size: 10px;
+  color: #7f9385;
+  line-height: 1.8;
+}
+
+.version {
+  font-size: 8px;
+  color: #526b5a;
+  letter-spacing: 1.5px;
+  display: block;
+  margin-top: 22px;
+}
+
+.app-shell {
+  margin-left: 224px;
+}
+
+.topbar {
+  height: 76px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 34px;
+  background: #fafbf8;
+}
+
+.breadcrumb {
+  font-size: 11px;
+  color: #859087;
+}
+
+.breadcrumb span {
+  margin: 0 12px;
+  color: #bec7b7;
+}
+
+.breadcrumb strong {
+  color: #53684a;
+  font-weight: 500;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.connection-pill {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  color: #839875;
+  font-size: 10px;
+}
+
+.connection-pill i {
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: #9aa890;
+}
+
+.connection-pill.online i {
+  background: #79b540;
+}
+
+.connection-pill.offline {
+  color: #b9784b;
+}
+
+.connection-pill.offline i {
+  background: #b9784b;
+}
+
+.button {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 11px 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fff;
+  min-height: 41px;
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+  transition: background .15s,transform .15s;
+}
+
+.button:hover {
+  background: #edf4e3;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button-small {
+  min-height: 35px;
+  padding: 9px 13px;
+  font-size: 11px;
+}
+
+.button-primary {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: #24331c;
+}
+
+.button-primary:hover {
+  background: #a1e84e;
+}
+
+.button-outline {
+  background: transparent;
+  border-color: #d5dfcd;
+}
+
+.button-dark {
+  background: #1c2e23;
+  border-color: #1c2e23;
+  color: #f3f8f0;
+}
+
+.button-dark:hover {
+  background: #304d3a;
+}
+
+.button-icon {
+  width: 43px;
+  padding: 9px;
+}
+
+.text-button {
+  border: 0;
+  background: none;
+  color: #85967a;
+  font-size: 11px;
+  padding: 8px;
+}
+
+.text-button:hover {
+  color: #ac513f;
+}
+
+main {
+  padding: 34px 34px 0;
+  max-width: 1800px;
+  margin: auto;
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 29px;
+}
+
+.green {
+  color: #789951;
+}
+
+.page-heading h1 {
+  font-size: 33px;
+  letter-spacing: -1.25px;
+  line-height: 1.15;
+  margin: 10px 0 9px;
+}
+
+.page-heading h1 span {
+  color: #7a965f;
+}
+
+.page-heading p {
+  font-size: 12px;
+  color: #8a9483;
+  margin: 0;
+}
+
+.page-heading>.button {
+  align-self: flex-end;
+  margin-bottom: 2px;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+.studio-grid,.below-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1.9fr) minmax(290px,1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.below-grid {
+  margin-top: 22px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 3px 12px #15241706;
+  min-width: 0;
+}
+
+.card h2 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -.2px;
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.kicker {
+  font-size: 8px;
+  color: #9ba88c;
+  letter-spacing: 1.3px;
+  white-space: nowrap;
+}
+
+.preview-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.preview-card .card-heading {
+  padding: 22px 23px;
+  margin: 0;
+}
+
+.preview-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8c9a82;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.preview-label i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #7da952;
+}
+
+.preview-stage {
+  aspect-ratio: 16/9;
+  position: relative;
+  background: #12231c url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIwIDEwODAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iSWxsdXN0cmF0ZWQgd29ya291dCBzdHVkaW8gcHJldmlldyI+CjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0id2FsbCIgeDI9IjAiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjMjgzYjM5Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTIyMTIwIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImZsb29yIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMzNDQzM2QiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxNzI4MjMiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0ibGlnaHQiPjxzdG9wIHN0b3AtY29sb3I9IiM3OTk4OGEiIHN0b3Atb3BhY2l0eT0iLjM1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzk5ODhhIiBzdG9wLW9wYWNpdHk9IjAiLz48L3JhZGlhbEdyYWRpZW50PjxwYXR0ZXJuIGlkPSJ0aWxlcyIgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxMDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0wIDBoMTUwdjEwMEgweiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjg4NDczIiBzdHJva2Utb3BhY2l0eT0iLjEzIi8+PC9wYXR0ZXJuPjwvZGVmcz4KPHBhdGggZmlsbD0idXJsKCN3YWxsKSIgZD0iTTAgMGgxOTIwdjcyMEgweiIvPjxwYXRoIGZpbGw9InVybCgjZmxvb3IpIiBkPSJNMCA3MjBoMTkyMHYzNjBIMHoiLz48cGF0aCBmaWxsPSJ1cmwoI3RpbGVzKSIgZD0iTTAgMGgxOTIwdjEwODBIMHoiLz48ZWxsaXBzZSBjeD0iOTUwIiBjeT0iNTAwIiByeD0iNzIwIiByeT0iNzAwIiBmaWxsPSJ1cmwoI2xpZ2h0KSIvPgo8ZyBzdHJva2U9IiMwZDE5MTYiIHN0cm9rZS13aWR0aD0iMjYiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik00MzAgNzI4VjE2NWg3MTB2NTYzTTUxMCAxODB2NTQ4TTEwNzAgMTgwdjU0OE00MzAgMTg4aDcxME01MzUgNDEwaDUwMCIvPjwvZz48ZyBmaWxsPSIjNjQ4MTc0IiBvcGFjaXR5PSIuNCI+PHBhdGggZD0iTTQwNSAxMzBoNzYwdjIwSDQwNXpNMzkwIDcwMGg3MHYzMGgtNzB6TTExMDUgNzAwaDcwdjMwaC03MHpNMTIwIDEyMmgyNzB2MTJIMTIwek0xMTgwIDEyMmgyNDB2MTJoLTI0MHoiLz48L2c+CjxnIHN0cm9rZT0iIzg1OTg4YiIgc3Ryb2tlLXdpZHRoPSI3IiBvcGFjaXR5PSIuNiI+PHBhdGggZD0iTTY5MCAxOTB2MjAwTTg3NSAxOTB2MjAwIi8+PC9nPjxnIHN0cm9rZT0iIzIwMmQyNCIgc3Ryb2tlLXdpZHRoPSIxMyIgZmlsbD0ibm9uZSI+PGNpcmNsZSBjeD0iNjkwIiBjeT0iNDE4IiByPSIyNiIvPjxjaXJjbGUgY3g9Ijg3NSIgY3k9IjQxOCIgcj0iMjYiLz48L2c+CjxnIGZpbGw9IiMxNDI1MWQiIHN0cm9rZT0iIzY2ODE2ZCIgc3Ryb2tlLW9wYWNpdHk9Ii40Ij48cGF0aCBkPSJNMTE5MCA1NjdoMTYwdjE1M2gtMTYwek0xMTkwIDU2N2w4MC00NiAxNTcgMy03NyA0M3pNMTM1MCA1NjdsNzctNDN2MTU1bC03NyA0MXoiLz48L2c+PGcgZmlsbD0iIzBjMWIxNCI+PGVsbGlwc2UgY3g9Ijg1MCIgY3k9Ijg1MSIgcng9IjM0MCIgcnk9IjI4IiBvcGFjaXR5PSIuNSIvPjxyZWN0IHg9IjYwMyIgeT0iNzc3IiB3aWR0aD0iNTEwIiBoZWlnaHQ9IjExIiByeD0iNSIvPjxyZWN0IHg9IjYxNiIgeT0iNzIwIiB3aWR0aD0iNDIiIGhlaWdodD0iMTI1IiByeD0iMTAiLz48cmVjdCB4PSI2NjgiIHk9IjczNCIgd2lkdGg9IjI4IiBoZWlnaHQ9Ijk1IiByeD0iNSIvPjxyZWN0IHg9IjEwMjQiIHk9IjcyMCIgd2lkdGg9IjQyIiBoZWlnaHQ9IjEyNSIgcng9IjEwIi8+PHJlY3QgeD0iOTg1IiB5PSI3MzQiIHdpZHRoPSIyOCIgaGVpZ2h0PSI5NSIgcng9IjUiLz48L2c+Cjx0ZXh0IHg9IjE3MCIgeT0iNDk1IiBmaWxsPSIjOWZiN2E0IiBvcGFjaXR5PSIuMTYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNzAwIiBsZXR0ZXItc3BhY2luZz0iMTgiIGZvbnQtc2l6ZT0iNTgiIHRyYW5zZm9ybT0icm90YXRlKC05MCAxNzAgNDk1KSI+V09EQ0FTVDwvdGV4dD48cGF0aCBkPSJNMCAwaDE5MjB2MTA4MEgweiIgZmlsbD0iIzA0MTQwYSIgb3BhY2l0eT0iLjE1Ii8+PC9zdmc+Cg==') center/cover;
+  margin: 0 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.preview-stage #previewOverlay {
+  position: absolute;
+  inset: 0;
+}
+
+.preview-caption {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 6px;
+  letter-spacing: 1.4px;
+  color: #ffffff66;
+  pointer-events: none;
+}
+
+.preview-stage[data-background=dark] {
+  background: #12201a;
+}
+
+.preview-stage[data-background=light] {
+  background: #e7ebe4;
+}
+
+.preview-stage[data-background=transparent] {
+  background-color: #fff;
+  background-image: linear-gradient(45deg,#e3e6e0 25%,transparent 25%),linear-gradient(-45deg,#e3e6e0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e3e6e0 75%),linear-gradient(-45deg,transparent 75%,#e3e6e0 75%);
+  background-size: 20px 20px;
+  background-position: 0 0,0 10px,10px -10px,-10px 0;
+}
+
+.preview-stage[data-background=light] .preview-caption,.preview-stage[data-background=transparent] .preview-caption {
+  color: #84927e;
+}
+
+.preview-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 19px;
+}
+
+.background-switch {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  background: #f3f5ec;
+  border-radius: 7px;
+}
+
+.background-switch button {
+  border: 0;
+  background: transparent;
+  border-radius: 5px;
+  color: #8c9982;
+  font-size: 9px;
+  padding: 6px 9px;
+}
+
+.background-switch button.active {
+  background: #fff;
+  color: #36512f;
+  box-shadow: 0 1px 4px #d8dfd1;
+}
+
+.safe-label {
+  font-size: 8px;
+  color: #9aa68e;
+  white-space: nowrap;
+}
+
+.tiny-badge {
+  background: #eff5e7;
+  color: #799459;
+  font-size: 8px;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  padding: 5px 7px;
+  white-space: nowrap;
+}
+
+.timer-card {
+  padding: 22px 23px;
+}
+
+.timer-card .card-heading {
+  margin-bottom: 14px;
+}
+
+.control-time {
+  text-align: center;
+  font-size: 58px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -2.5px;
+  font-weight: 700;
+  line-height: 1.12;
+  color: #233622;
+}
+
+.control-time.has-hours {
+  font-size: 40px;
+  letter-spacing: -1px;
+}
+
+.control-phase {
+  text-align: center;
+  color: #8c9a85;
+  font-size: 10px;
+  margin: 6px 0 17px;
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.timer-buttons .button-primary {
+  flex: 1;
+}
+
+.preset-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 6px;
+  margin: 20px 0 17px;
+}
+
+.preset {
+  border: 1px solid #e4eadf;
+  background: #fbfcf8;
+  color: #7b8c6d;
+  border-radius: 8px;
+  padding: 10px 4px;
+  font-size: 9px;
+  letter-spacing: .4px;
+  font-weight: 700;
+}
+
+.preset small {
+  display: block;
+  font-size: 7px;
+  letter-spacing: .5px;
+  font-weight: 400;
+  margin-top: 5px;
+  color: #95a48b;
+}
+
+.preset.active,.preset:hover {
+  background: #eff7e3;
+  border-color: #b2cf90;
+  color: #45642e;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 10px;
+  color: #798573;
+  margin-bottom: 15px;
+  min-width: 0;
+}
+
+.field input,.field select,.field textarea {
+  width: 100%;
+  background: #fcfdfb;
+  border: 1px solid #e3e9dd;
+  border-radius: 8px;
+  min-height: 38px;
+  padding: 10px 11px;
+  color: #374b30;
+  font-size: 12px;
+  min-width: 0;
+}
+
+.field textarea {
+  line-height: 1.65;
+  resize: vertical;
+}
+
+.field-row,.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14px;
+}
+
+.field-grid>.wide {
+  grid-column: 1/-1;
+}
+
+.timer-form-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: end;
+}
+
+.timer-form-footer .button {
+  margin-bottom: 15px;
+}
+
+.micro-copy {
+  font-size: 9px;
+  color: #99a491;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.audio-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--line);
+  padding: 15px 0 0;
+  margin-top: 15px;
+  background: none;
+  color: #7d8b72;
+  font-size: 10px;
+}
+
+.audio-button svg {
+  height: 15px;
+  width: 15px;
+}
+
+.audio-button i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b7c0af;
+  margin-left: auto;
+}
+
+.audio-button.enabled {
+  color: #466732;
+}
+
+.audio-button.enabled i {
+  background: #79b540;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.form-footer .micro-copy {
+  max-width: 65%;
+}
+
+.muted {
+  color: #8d9788;
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 10px 0 18px;
+}
+
+.visibility-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.visibility-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 11px;
+  border: 1px solid #e8ecdf;
+  border-radius: 8px;
+  font-size: 10px;
+  color: #738466;
+  cursor: pointer;
+}
+
+.visibility-toggle input {
+  appearance: none;
+  width: 27px;
+  height: 16px;
+  background: #dde4d5;
+  border-radius: 9px;
+  position: relative;
+  flex: none;
+  cursor: pointer;
+  margin: 0;
+}
+
+.visibility-toggle input:before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform .15s;
+}
+
+.visibility-toggle input:checked {
+  background: #89b955;
+}
+
+.visibility-toggle input:checked:before {
+  transform: translateX(11px);
+}
+
+.session-summary {
+  padding: 18px 16px;
+  background: #f3f7ed;
+  border: 1px solid #e9efdf;
+  border-radius: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.session-summary .eyebrow {
+  font-size: 7px;
+  color: #93a780;
+}
+
+.session-summary strong {
+  font-size: 11px;
+  display: block;
+  color: #668048;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.summary-arrow {
+  font-size: 25px;
+  color: #92b16b;
+}
+
+.shortcuts {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 20px 0 8px;
+  font-size: 9px;
+  color: #8d9b80;
+}
+
+.shortcuts kbd {
+  font-family: inherit;
+  font-size: 9px;
+  border: 1px solid #e1e7da;
+  border-radius: 4px;
+  background: #fafcf7;
+  padding: 4px 6px;
+  color: #7b8e6e;
+}
+
+.shortcuts kbd:nth-of-type(2) {
+  margin-left: auto;
+}
+
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-top: 29px;
+  padding: 18px 0 24px;
+  border-top: 1px solid var(--line);
+  color: #a1ab98;
+  font-size: 8px;
+  letter-spacing: .4px;
+}
+
+.design-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.design-stack {
+  display: grid;
+  gap: 22px;
+}
+
+.logo-upload {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding: 18px;
+  background: #f6f9f1;
+  border: 1px dashed #d5e1c6;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.logo-preview {
+  height: 72px;
+  width: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #e9f1df;
+  flex: none;
+}
+
+.logo-preview img {
+  max-height: 57px;
+  max-width: 57px;
+  object-fit: contain;
+}
+
+.logo-upload strong {
+  font-size: 12px;
+}
+
+.logo-upload p {
+  font-size: 9px;
+  color: #8b9c7a;
+  margin: 8px 0 12px;
+}
+
+.inline-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.file-button {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.file-button input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.check-field {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: #738569;
+  margin: 12px 0 18px;
+}
+
+.check-field input {
+  accent-color: #7ba748;
+  width: 16px;
+  height: 16px;
+}
+
+.color-field input {
+  padding: 4px;
+  height: 42px;
+  cursor: pointer;
+}
+
+details {
+  margin-bottom: 17px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+details summary {
+  font-size: 11px;
+  color: #78905f;
+  cursor: pointer;
+}
+
+details .field-grid {
+  margin-top: 18px;
+}
+
+.zones-card {
+  margin-top: 22px;
+}
+
+.zones-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 24px;
+}
+
+.zone-editor {
+  border: 0;
+  border-top: 1px solid var(--line);
+  padding: 19px 0 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.zone-editor legend {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6e8659;
+  padding-right: 12px;
+}
+
+.copy-field {
+  display: flex;
+  gap: 6px;
+}
+
+.copy-field input {
+  font-size: 11px;
+}
+
+.integration-card {
+  padding: 29px;
+}
+
+.step-number {
+  display: block;
+  font-size: 27px;
+  color: #a7bf86;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+.integration-card h2,.guide-card h2 {
+  font-size: 17px;
+}
+
+.integration-card>p,.guide-card p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #89977d;
+  margin: 13px 0 23px;
+}
+
+.spec-chips {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.spec-chips span,.chip {
+  border-radius: 5px;
+  background: #edf4e3;
+  color: #7c965c;
+  padding: 7px 9px;
+  font-size: 9px;
+}
+
+.integration-card ol {
+  padding-left: 20px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #7b8d6c;
+}
+
+.integration-card ol li {
+  margin-bottom: 11px;
+  padding-left: 5px;
+}
+
+.info-note {
+  padding: 14px 16px;
+  border-radius: 9px;
+  background: #f4f7ee;
+  font-size: 10px;
+  color: #849673;
+  line-height: 1.8;
+}
+
+.pair-code {
+  font-size: 30px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 8px;
+  color: #446534;
+  background: #f0f6e5;
+  padding: 17px;
+  border-radius: 9px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.pair-url {
+  font-family: monospace;
+  font-size: 12px;
+  padding: 10px 0;
+  color: #6c8653;
+  word-break: break-all;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  font-size: 12px;
+  color: #7f9072;
+  line-height: 1.8;
+}
+
+.checklist li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+}
+
+.checklist li:before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: #82ad4f;
+  font-weight: 700;
+}
+
+.guide-card code {
+  font-size: 11px;
+  background: #eef3e7;
+  padding: 8px;
+  border-radius: 5px;
+  display: inline-block;
+  color: #54703d;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.demo-banner {
+  background: #e9f3db;
+  border: 1px solid #cdddb7;
+  border-radius: 10px;
+  padding: 13px 17px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  color: #6c854d;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.demo-banner strong {
+  font-size: 8px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.offline-banner {
+  background: #fff0e2;
+  border: 1px solid #eed2ab;
+  color: #9e713c;
+  font-size: 11px;
+  border-radius: 10px;
+  padding: 15px 18px;
+  margin-bottom: 20px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 25px;
+  left: calc(50% + 100px);
+  transform: translateX(-50%);
+  max-width: min(600px,85vw);
+  padding: 15px 22px;
+  border-radius: 12px;
+  background: #203624;
+  color: #e9f3df;
+  box-shadow: 0 10px 40px #18231635;
+  font-size: 12px;
+  z-index: 100;
+  line-height: 1.6;
+}
+
+.toast.error {
+  background: #814f3a;
+  color: #fff4e8;
+}
+
+dialog {
+  border: 1px solid #d8e5c9;
+  border-radius: 18px;
+  padding: 30px;
+  color: var(--ink);
+  max-width: 400px;
+  width: calc(100% - 32px);
+}
+
+dialog::backdrop {
+  background: #13241ecc;
+  backdrop-filter: blur(4px);
+}
+
+dialog p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #879c72;
+}
+
+dialog h2 {
+  font-size: 21px;
+  letter-spacing: -.5px;
+}
+
+dialog .button {
+  width: 100%;
+}
+
+.error-text {
+  color: #b65c3d!important;
+  min-height: 18px;
+}
+
+@media(min-width:1600px) {
+  main {
+    padding: 42px 45px 0;
+  }
+  .topbar {
+    padding: 0 45px;
+  }
+  .studio-grid,.below-grid {
+    grid-template-columns: minmax(0,2.2fr) minmax(330px,1fr);
+  }
+  .control-time {
+    font-size: 64px;
+  }
+  .preview-card .card-heading {
+    padding: 25px 26px;
+  }
+  .preview-footer {
+    padding: 21px 24px;
+  }
+  .timer-card {
+    padding: 25px 27px;
+  }
+  .preset {
+    padding: 13px 6px;
+  }
+}
+
+@media(max-width:1200px) {
+  .sidebar {
+    width: 190px;
+    padding: 25px 14px;
+  }
+  .wordmark {
+    gap: 8px;
+    margin-bottom: 35px;
+  }
+  .wordmark>span {
+    font-size: 16px;
+  }
+  .wordmark img {
+    width: 37px;
+    height: 37px;
+  }
+  .app-shell {
+    margin-left: 190px;
+  }
+  main {
+    padding: 26px 23px 0;
+  }
+  .topbar {
+    padding: 0 23px;
+  }
+  .studio-grid,.below-grid {
+    grid-template-columns: minmax(0,1.6fr) minmax(275px,1fr);
+    gap: 16px;
+  }
+  .safe-label {
+    display: none;
+  }
+  .preview-label {
+    font-size: 7px;
+  }
+  .card {
+    padding: 20px;
+  }
+  .preview-card {
+    padding: 0;
+  }
+  .timer-card {
+    padding: 20px;
+  }
+  .page-heading h1 {
+    font-size: 29px;
+  }
+  .logo-upload {
+    flex-direction: column;
+    text-align: center;
+  }
+  .logo-upload .inline-buttons {
+    justify-content: center;
+  }
+  .toast {
+    left: calc(50% + 90px);
+  }
+}
+
+@media(max-width:1000px) {
+  .studio-grid,.below-grid {
+    grid-template-columns: 1fr;
+  }
+  .timer-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+  }
+  .timer-card .card-heading {
+    grid-column: 1/-1;
+  }
+  .control-time,.control-phase,.timer-buttons,.preset-row,.audio-button {
+    grid-column: 1;
+  }
+  .timer-form-footer .button {
+    padding: 10px;
+  }
+  .timer-form-footer {
+    gap: 9px;
+  }
+  #timerForm {
+    grid-column: 2;
+    grid-row: 2/7;
+    align-self: center;
+  }
+  .control-time {
+    font-size: 64px;
+  }
+  .preset-row {
+    margin: 15px 0 0;
+  }
+  .audio-button {
+    margin: 10px 0 0;
+    align-self: end;
+  }
+  .design-grid {
+    gap: 16px;
+  }
+  .zones-grid {
+    gap: 16px;
+  }
+  .page-heading>.button {
+    font-size: 10px;
+    padding: 10px 12px;
+  }
+  .preview-caption {
+    font-size: 5px;
+    letter-spacing: .5px;
+  }
+}
+
+@media(max-width:760px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    padding: 17px 18px;
+  }
+  .wordmark {
+    margin: 0 0 17px;
+    gap: 10px;
+  }
+  .wordmark img {
+    width: 36px;
+    height: 36px;
+  }
+  .wordmark>span {
+    font-size: 17px;
+  }
+  .wordmark small {
+    font-size: 7px;
+  }
+  .nav-caption,.session-card,.sidebar-footer {
+    display: none;
+  }
+  .sidebar nav {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+  }
+  .nav-item {
+    height: 38px;
+    font-size: 11px;
+    padding: 0 11px;
+    gap: 7px;
+    flex: 1;
+    justify-content: center;
+  }
+  .nav-item svg {
+    width: 15px;
+    height: 15px;
+  }
+  .nav-dot {
+    display: none;
+  }
+  .app-shell {
+    margin-left: 0;
+  }
+  .topbar {
+    height: 64px;
+    padding: 0 18px;
+  }
+  .topbar-actions {
+    gap: 12px;
+  }
+  .breadcrumb {
+    font-size: 9px;
+  }
+  .breadcrumb span {
+    margin: 0 7px;
+  }
+  .connection-pill {
+    font-size: 9px;
+  }
+  .topbar .button {
+    font-size: 10px;
+    padding: 9px;
+  }
+  .topbar .button svg {
+    display: none;
+  }
+  main {
+    padding: 25px 18px 0;
+  }
+  .page-heading {
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 23px;
+  }
+  .page-heading h1 {
+    font-size: 27px;
+  }
+  .page-heading .eyebrow {
+    font-size: 7px;
+  }
+  .page-heading p {
+    font-size: 11px;
+  }
+  .page-heading>.button {
+    min-height: 35px;
+    font-size: 9px;
+    padding: 8px 10px;
+    align-self: center;
+  }
+  .page-heading>.button svg {
+    width: 14px;
+    height: 14px;
+  }
+  .card {
+    border-radius: 13px;
+    padding: 20px;
+  }
+  .preview-card {
+    padding: 0;
+  }
+  .preview-card .card-heading {
+    padding: 17px;
+  }
+  .preview-label {
+    font-size: 6px;
+  }
+  .preview-card h2 {
+    font-size: 12px;
+  }
+  .preview-footer {
+    padding: 13px;
+  }
+  .background-switch button {
+    padding: 6px 9px;
+    font-size: 8px;
+  }
+  .preview-caption {
+    font-size: 4px;
+  }
+  .timer-card {
+    display: block;
+    padding: 22px;
+  }
+  .timer-card .card-heading {
+    margin-bottom: 20px;
+  }
+  .control-time {
+    font-size: 72px;
+  }
+  .control-time.has-hours {
+    font-size: 44px;
+  }
+  .timer-buttons .button {
+    min-height: 48px;
+    font-size: 12px;
+  }
+  .preset-row {
+    margin: 20px 0;
+  }
+  .preset {
+    padding: 13px 5px;
+    font-size: 10px;
+  }
+  .preset small {
+    font-size: 8px;
+  }
+  .audio-button {
+    padding-top: 18px;
+    margin-top: 20px;
+    font-size: 11px;
+    min-height: 44px;
+  }
+  .design-grid,.zones-grid {
+    grid-template-columns: 1fr;
+  }
+  .logo-upload {
+    flex-direction: row;
+    text-align: left;
+    padding: 15px;
+    gap: 13px;
+  }
+  .logo-upload .inline-buttons {
+    justify-content: flex-start;
+  }
+  .logo-preview {
+    width: 58px;
+    height: 58px;
+  }
+  .logo-preview img {
+    max-width: 47px;
+    max-height: 47px;
+  }
+  .zones-card {
+    margin-top: 16px;
+  }
+  .field input,.field select,.field textarea {
+    font-size: 16px;
+    min-height: 44px;
+  }
+  .field {
+    font-size: 11px;
+  }
+  .button-small {
+    min-height: 40px;
+    font-size: 11px;
+  }
+  .visibility-toggle {
+    padding: 13px;
+    font-size: 11px;
+  }
+  .app-footer {
+    font-size: 7px;
+    align-items: flex-start;
+    line-height: 1.7;
+  }
+  .toast {
+    left: 50%;
+    bottom: 18px;
+    font-size: 12px;
+  }
+  .demo-banner {
+    display: block;
+    font-size: 10px;
+  }
+  .demo-banner strong {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .integration-card {
+    padding: 24px;
+  }
+  .integration-card h2 {
+    font-size: 18px;
+  }
+  .integration-card ol {
+    font-size: 13px;
+  }
+  .form-footer .micro-copy {
+    font-size: 8px;
+    max-width: 55%;
+  }
+  .tiny-badge {
+    font-size: 9px;
+  }
+  #view-connect .page-heading .chip {
+    display: none;
+  }
+  .guide-card p {
+    font-size: 13px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*:before,*:after {
+    transition: none!important;
+  }
+}
+</style>
+    <style>html,body {
+  margin: 0;
+  padding: 0;
+}
+
+.overlay-page {
+  color-scheme: dark;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent!important;
+}
+
+.overlay-host {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.overlay-canvas {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  color: var(--ov-text,#fff);
+  --ov-accent: #b0f15b;
+  --ov-panel: rgba(12,23,19,.83);
+}
+
+.overlay-canvas * {
+  box-sizing: border-box;
+}
+
+.ov-zone {
+  position: absolute;
+  background: var(--ov-panel);
+  border: 1px solid #ffffff25;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: opacity .25s,visibility .25s;
+  backdrop-filter: blur(8px);
+}
+
+.zone-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.field-hidden {
+  display: none!important;
+}
+
+.ov-brand {
+  padding: 26px 28px;
+  border-left: 5px solid var(--ov-accent);
+}
+
+.ov-brand-head {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  min-height: 60px;
+}
+
+.ov-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 12px;
+  flex: none;
+}
+
+.ov-title {
+  font-size: var(--titleSize,38px);
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ov-event {
+  font-size: var(--eventSize,24px);
+  line-height: 1.25;
+  color: var(--ov-accent);
+  letter-spacing: 3px;
+  font-weight: 800;
+  margin-top: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ov-subtitle {
+  font-size: var(--subtitleSize,18px);
+  letter-spacing: 1px;
+  font-weight: 600;
+  opacity: .75;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.ov-free {
+  font-size: var(--freeTextSize,20px);
+  line-height: 1.3;
+  white-space: pre-line;
+  opacity: .65;
+  margin-top: 7px;
+}
+
+.ov-timer {
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: 4px solid var(--ov-accent);
+}
+
+.ov-phase {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.ov-phase i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ov-accent);
+}
+
+.ov-time {
+  font-size: var(--timerSize,132px);
+  font-family: "Courier New",Courier,monospace;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -9px;
+  line-height: 1.05;
+  margin: 5px 0 4px;
+  white-space: nowrap;
+}
+
+.ov-time.has-hours {
+  font-size: calc(var(--timerSize,132px)*.72);
+  letter-spacing: -6px;
+}
+
+.ov-round {
+  font-size: 17px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  opacity: .6;
+}
+
+.ov-progress {
+  height: 4px;
+  min-height: 4px;
+  background: #ffffff20;
+  width: 84%;
+  margin-top: 16px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ov-progress i {
+  display: block;
+  height: 100%;
+  background: var(--ov-accent);
+  transition: width .1s linear;
+}
+
+.ov-info {
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ov-label {
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  opacity: .7;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  white-space: nowrap;
+}
+
+.ov-label i {
+  flex: 1;
+  background: var(--ov-accent);
+  height: 2px;
+}
+
+.ov-wod {
+  margin-top: 24px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ov-wod-heading {
+  color: var(--ov-accent);
+  font-size: calc(var(--textSize,28px)*1.08);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 22px;
+  white-space: pre-wrap;
+}
+
+.ov-wod-line {
+  font-size: var(--textSize,28px);
+  line-height: 1.45;
+  padding: 13px 0;
+  border-bottom: 1px solid #ffffff1a;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.ov-coach {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 25px;
+  padding-top: 22px;
+  border-top: 1px solid #ffffff24;
+}
+
+.ov-avatar {
+  height: 48px;
+  width: 48px;
+  border: 1px solid var(--ov-accent);
+  color: var(--ov-accent);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 17px;
+  flex: none;
+  font-weight: 700;
+}
+
+.ov-coach small {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: .5;
+  margin-bottom: 6px;
+}
+
+.ov-coach strong {
+  font-size: var(--coachSize,22px);
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.ov-notes {
+  font-size: var(--notesSize,18px);
+  line-height: 1.5;
+  opacity: .6;
+  margin-top: 23px;
+  white-space: pre-line;
+  max-height: 110px;
+  overflow: hidden;
+}
+
+.ov-clock {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid #ffffff1f;
+  padding-top: 20px;
+  margin-top: 22px;
+  font-size: var(--clockSize,15px);
+  letter-spacing: 1px;
+  align-items: center;
+}
+
+.ov-clock span {
+  opacity: .45;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.ov-clock time {
+  font-variant-numeric: tabular-nums;
+}
+
+.no-animation .ov-zone,.no-animation .ov-progress i {
+  transition: none;
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .ov-zone,.ov-progress i {
+    transition: none;
+  }
+}
+</style>
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true">
+      <defs>
+        <symbol id="icon-grid" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24">
+          <path d="M4 5h16M4 12h16M4 19h16"/>
+          <circle cx="8" cy="5" r="2"/>
+          <circle cx="16" cy="12" r="2"/>
+          <circle cx="10" cy="19" r="2"/>
+        </symbol>
+        <symbol id="icon-link" viewBox="0 0 24 24">
+          <path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-2 2M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l2-2"/>
+        </symbol>
+        <symbol id="icon-help" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M9 9a3 3 0 016 0c0 2-3 2-3 4M12 17h.01"/>
+        </symbol>
+        <symbol id="icon-open" viewBox="0 0 24 24">
+          <path d="M14 3h7v7M21 3l-9 9M10 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-5"/>
+        </symbol>
+        <symbol id="icon-save" viewBox="0 0 24 24">
+          <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h12l4 4v12a2 2 0 01-2 2zM7 3v6h10V3M7 21v-8h10v8"/>
+        </symbol>
+        <symbol id="icon-reset" viewBox="0 0 24 24">
+          <path d="M3 4v6h6M3 10a9 9 0 119 11"/>
+        </symbol>
+        <symbol id="icon-play" viewBox="0 0 24 24">
+          <path d="M8 5l11 7-11 7z"/>
+        </symbol>
+        <symbol id="icon-pause" viewBox="0 0 24 24">
+          <path d="M8 5v14M16 5v14"/>
+        </symbol>
+        <symbol id="icon-audio" viewBox="0 0 24 24">
+          <path d="M11 5L6 9H3v6h3l5 4zM15 8a6 6 0 010 8M18 5a10 10 0 010 14"/>
+        </symbol>
+        <symbol id="icon-copy" viewBox="0 0 24 24">
+          <rect x="8" y="8" width="13" height="13" rx="2"/>
+          <path d="M16 8V3H3v13h5"/>
+        </symbol>
+      </defs>
+    </svg>
+    <aside class="sidebar">
+      <a class="wordmark" href="#studio">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJXT0RDQVNUIGxvZ28iPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcng9IjIyIiBmaWxsPSIjYjBmMTViIi8+PHBhdGggZD0iTTE3IDIzaDExbDYgMjUgNi0xOWg4bDYgMTkgNy0yNWgxMEw1OSA1OUg0OGwtNS0xNy02IDE3SDI2eiIgZmlsbD0iIzE0MjAxOSIvPjxjaXJjbGUgY3g9IjYxIiBjeT0iMTciIHI9IjQiIGZpbGw9IiMxNDIwMTkiLz48L3N2Zz4K" alt="WODCAST">
+        <span>WODCAST<small>WORKOUT STUDIO</small>
+        </span>
+      </a>
+      <div class="nav-caption">YOUR WORKSPACE</div>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-view="studio">
+          <svg>
+            <use href="#icon-grid"/>
+          </svg>Studio<span class="nav-dot">
+          </span>
+        </button>
+        <button class="nav-item" data-view="design">
+          <svg>
+            <use href="#icon-settings"/>
+          </svg>Design</button>
+        <button class="nav-item" data-view="connect">
+          <svg>
+            <use href="#icon-link"/>
+          </svg>Connections</button>
+        <button class="nav-item" data-view="guide">
+          <svg>
+            <use href="#icon-help"/>
+          </svg>Quick guide</button>
+      </nav>
+      <div class="session-card">
+        <span class="eyebrow">CURRENT SESSION</span>
+        <strong id="sidebarEvent">FRIDAY ENGINE</strong>
+        <span id="sidebarMode">TIME CAP / 12 MIN</span>
+        <div class="session-line">
+          <i>
+          </i>
+        </div>
+        <small>One session.<br>Everyone in sync.</small>
+      </div>
+      <div class="sidebar-footer">
+        <span class="local-badge">
+          <i>
+          </i>LOCAL FIRST</span>
+        <small>Your code. Your studio.<br>Ready for your next session.</small>
+        <span class="version">VERSION 1.1</span>
+      </div>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace <span>/</span>
+          <strong id="currentView">Studio</strong>
+        </div>
+        <div class="topbar-actions">
+          <span class="connection-pill" id="connectionPill">
+            <i>
+            </i>Connecting</span>
+          <button class="button button-small" id="saveButton">
+            <svg>
+              <use href="#icon-save"/>
+            </svg>Save layout</button>
+        </div>
+      </header>
+      <main>
+        <div class="demo-banner" id="demoBanner" hidden>
+          <strong>INTERACTIVE PREVIEW</strong>
+          <span>This file runs in your browser. Start the complete project to connect OBS, Zoom or a phone.</span>
+        </div>
+        <div class="offline-banner" id="offlineBanner" hidden>Connection lost. The display is frozen until the studio reconnects.</div>
+        <section class="view active" id="view-studio">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow green">TRAIN TOGETHER. GET STRONGER.</span>
+              <h1>Your workout. <span>Live.</span>
+              </h1>
+              <p>Everything you need for a great session.</p>
+            </div>
+            <a class="button button-outline" id="openOverlay" href="/overlay.html" target="_blank" rel="noopener">
+              <svg>
+                <use href="#icon-open"/>
+              </svg>Open overlay</a>
+          </div>
+          <div class="studio-grid">
+            <section class="card preview-card">
+              <div class="card-heading">
+                <h2>Live preview</h2>
+                <span class="preview-label">
+                  <i>
+                  </i>OVERLAY / 1920 x 1080</span>
+              </div>
+              <div class="preview-stage" id="previewStage">
+                <div id="previewOverlay">
+                </div>
+                <span class="preview-caption">PREVIEW BACKGROUND / USE YOUR CAMERA IN OBS</span>
+              </div>
+              <div class="preview-footer">
+                <div class="background-switch" aria-label="Preview background">
+                  <button class="active" data-background="studio">Studio</button>
+                  <button data-background="dark">Dark</button>
+                  <button data-background="light">Light</button>
+                  <button data-background="transparent">Transparent</button>
+                </div>
+                <span class="safe-label">16:9 / Transparent output</span>
+              </div>
+            </section>
+            <section class="card timer-card">
+              <div class="card-heading">
+                <h2>Timer controls</h2>
+                <span class="tiny-badge" id="timerStatus">READY</span>
+              </div>
+              <div class="control-time" id="controlTime">12:00</div>
+              <div class="control-phase" id="controlPhase">Countdown / ready to start</div>
+              <div class="timer-buttons">
+                <button class="button button-primary" id="primaryTimer">
+                  <svg>
+                    <use href="#icon-play"/>
+                  </svg>
+                  <span>Start workout</span>
+                </button>
+                <button class="button button-icon" id="resetTimer" title="Reset timer" aria-label="Reset timer">
+                  <svg>
+                    <use href="#icon-reset"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="preset-row">
+                <button class="preset active" data-preset="amrap">AMRAP<small>12 MIN</small>
+                </button>
+                <button class="preset" data-preset="emom">EMOM<small>10 ROUNDS</small>
+                </button>
+                <button class="preset" data-preset="tabata">TABATA<small>20 / 10</small>
+                </button>
+              </div>
+              <form id="timerForm" data-editor>
+                <label class="field">Timer mode<select name="timer.mode" id="timerMode">
+                    <option value="countdown">Countdown / Time cap</option>
+                    <option value="stopwatch">Stopwatch</option>
+                    <option value="interval">Intervals / Work and rest</option>
+                  </select>
+                </label>
+                <div class="field-row" id="durationFields">
+                  <label class="field">Minutes<input type="number" id="durationMin" min="0" max="1440" step="1" value="12">
+                  </label>
+                  <label class="field">Seconds<input type="number" id="durationPart" min="0" max="59" step="1" value="0">
+                  </label>
+                </div>
+                <div id="intervalFields" hidden>
+                  <div class="field-row">
+                    <label class="field">Work / seconds<input name="timer.workSec" type="number" min="1" max="3600">
+                    </label>
+                    <label class="field">Rest / seconds<input name="timer.restSec" type="number" min="0" max="3600">
+                    </label>
+                  </div>
+                  <label class="field">Rounds<input name="timer.rounds" type="number" min="1" max="200">
+                  </label>
+                </div>
+                <div class="timer-form-footer">
+                  <label class="field">Lead-in / seconds<input name="timer.prestartSec" type="number" min="0" max="120">
+                  </label>
+                  <button class="button button-outline button-small" type="submit">Apply timer</button>
+                </div>
+                <p class="micro-copy" id="timerHint">Set the times before starting.</p>
+              </form>
+              <button class="audio-button" id="audioButton">
+                <svg>
+                  <use href="#icon-audio"/>
+                </svg>
+                <span>Enable sound cues</span>
+                <i>
+                </i>
+              </button>
+            </section>
+          </div>
+          <div class="below-grid">
+            <section class="card">
+              <div class="card-heading">
+                <h2>Workout and coach</h2>
+                <span class="kicker">YOUR SESSION</span>
+              </div>
+              <form id="contentForm" data-editor>
+                <div id="contentFields">
+                </div>
+                <div class="form-footer">
+                  <span class="micro-copy">Edits go live when you apply them.</span>
+                  <button class="button button-dark button-small" type="submit">Apply content</button>
+                </div>
+              </form>
+            </section>
+            <section class="card">
+              <div class="card-heading">
+                <h2>Show in the overlay</h2>
+                <span class="kicker">LIVE CONTROLS</span>
+              </div>
+              <p class="muted">Keep the focus on what matters.</p>
+              <div class="visibility-grid" id="visibilityFields">
+              </div>
+              <div class="session-summary">
+                <div>
+                  <span class="eyebrow">SESSION STATUS</span>
+                  <strong id="summaryStatus">Ready when you are</strong>
+                </div>
+                <span class="summary-arrow">&#8599;</span>
+              </div>
+              <div class="shortcuts">
+                <kbd>Space</kbd>Start / pause<kbd>R</kbd>Reset</div>
+              <p class="micro-copy">Shortcuts work in this panel, outside text fields.</p>
+            </section>
+          </div>
+        </section>
+        <section class="view" id="view-design">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow green">YOUR BRAND, ON SCREEN</span>
+              <h1>Make it <span>yours.</span>
+              </h1>
+              <p>Design a clear, confident look for your studio.</p>
+            </div>
+            <button class="button button-outline" id="defaultsButton">
+              <svg>
+                <use href="#icon-reset"/>
+              </svg>Restore defaults</button>
+          </div>
+          <div class="design-grid">
+            <div class="design-stack">
+              <section class="card">
+                <div class="card-heading">
+                  <h2>Logo and identity</h2>
+                  <span class="kicker">LEFT ZONE</span>
+                </div>
+                <div class="logo-upload">
+                  <div class="logo-preview">
+                    <img id="logoPreview" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJXT0RDQVNUIGxvZ28iPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcng9IjIyIiBmaWxsPSIjYjBmMTViIi8+PHBhdGggZD0iTTE3IDIzaDExbDYgMjUgNi0xOWg4bDYgMTkgNy0yNWgxMEw1OSA1OUg0OGwtNS0xNy02IDE3SDI2eiIgZmlsbD0iIzE0MjAxOSIvPjxjaXJjbGUgY3g9IjYxIiBjeT0iMTciIHI9IjQiIGZpbGw9IiMxNDIwMTkiLz48L3N2Zz4K" alt="Current studio logo">
+                  </div>
+                  <div>
+                    <strong>Your studio. Your signature.</strong>
+                    <p>PNG, JPEG or WebP / up to 2 MB</p>
+                    <div class="inline-buttons">
+                      <label class="button button-outline button-small file-button">Upload logo<input type="file" id="logoInput" accept="image/png,image/jpeg,image/webp" aria-label="Upload logo">
+                      </label>
+                      <button class="text-button" id="removeLogo">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <form id="brandForm" data-editor>
+                  <div id="brandFields">
+                  </div>
+                  <div class="form-footer">
+                    <span class="micro-copy">Short, readable text works best on video.</span>
+                    <button class="button button-dark button-small" type="submit">Apply identity</button>
+                  </div>
+                </form>
+              </section>
+              <section class="card backup-card">
+                <h2>Take your layout with you.</h2>
+                <p class="muted">Export your settings and uploaded logo in one file.</p>
+                <div class="inline-buttons">
+                  <button class="button button-outline button-small" id="exportButton">Export layout</button>
+                  <label class="button button-dark button-small file-button">Import layout<input id="importInput" type="file" accept="application/json,.json" aria-label="Import layout">
+                  </label>
+                </div>
+              </section>
+            </div>
+            <section class="card">
+              <div class="card-heading">
+                <h2>Colors and typography</h2>
+                <span class="kicker">ALL ZONES</span>
+              </div>
+              <form id="themeForm" data-editor>
+                <div id="themeFields">
+                </div>
+                <div class="form-footer">
+                  <span class="micro-copy">Sizes refer to the 1080p canvas.</span>
+                  <button class="button button-dark button-small" type="submit">Apply design</button>
+                </div>
+              </form>
+            </section>
+          </div>
+          <section class="card zones-card">
+            <div class="card-heading">
+              <h2>Position and size</h2>
+              <span class="kicker">1920 x 1080 CANVAS</span>
+            </div>
+            <p class="muted">Coordinates scale with the video. Give longer text enough space.</p>
+            <form id="zonesForm" data-editor>
+              <div class="zones-grid" id="zoneFields">
+              </div>
+              <div class="form-footer">
+                <span class="micro-copy">X and Y start at the upper-left corner.</span>
+                <button class="button button-dark button-small" type="submit">Apply positions</button>
+              </div>
+            </form>
+          </section>
+        </section>
+        <section class="view" id="view-connect">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow green">FROM STUDIO TO STREAM</span>
+              <h1>Connected. <span>Ready.</span>
+              </h1>
+              <p>Your camera, your overlay and your audience.</p>
+            </div>
+            <span class="chip">LOCAL NETWORK</span>
+          </div>
+          <div class="design-grid">
+            <section class="card integration-card">
+              <span class="step-number">01</span>
+              <h2>OBS Browser Source</h2>
+              <p>Add your camera first, then place the transparent overlay above it.</p>
+              <label class="field">Overlay URL<div class="copy-field">
+                  <input id="obsUrl" readonly value="http://127.0.0.1:8787/overlay.html">
+                  <button type="button" class="button button-icon" id="copyObs" aria-label="Copy overlay URL">
+                    <svg>
+                      <use href="#icon-copy"/>
+                    </svg>
+                  </button>
+                </div>
+              </label>
+              <div class="spec-chips">
+                <span>1920 x 1080</span>
+                <span>30 FPS</span>
+                <span>Transparent</span>
+              </div>
+              <ol>
+                <li>In OBS, add a <strong>Browser Source</strong>.</li>
+                <li>Paste the URL and set the source dimensions.</li>
+                <li>Keep it above the camera in your source list.</li>
+                <li>Disable source shutdown when hidden.</li>
+              </ol>
+            </section>
+            <section class="card integration-card">
+              <span class="step-number">02</span>
+              <h2>Zoom Virtual Camera</h2>
+              <p>Send the complete OBS scene to your meeting as a camera.</p>
+              <ol>
+                <li>Select <strong>Start Virtual Camera</strong> in OBS.</li>
+                <li>Choose <strong>OBS Virtual Camera</strong> in Zoom.</li>
+                <li>Select your microphone in Zoom.</li>
+                <li>Share computer audio separately for sound cues.</li>
+              </ol>
+              <div class="info-note">1080p is the overlay canvas size. Zoom's received resolution depends on the account, settings and connection.</div>
+            </section>
+            <section class="card integration-card">
+              <span class="step-number">03</span>
+              <h2>Your phone as a remote</h2>
+              <p>Connect your phone and computer to the same trusted Wi-Fi network.</p>
+              <div id="pairingInfo">
+              </div>
+              <div class="info-note">Use the LAN launcher to enable phone access. Enter the computer's address on the phone, then pair with the six-digit code.</div>
+            </section>
+            <section class="card integration-card">
+              <span class="step-number">04</span>
+              <h2>Before going live</h2>
+              <ul class="checklist">
+                <li>Try start, pause, resume and reset.</li>
+                <li>Check logo and text over your camera.</li>
+                <li>Join Zoom from a second device.</li>
+                <li>Verify the received picture and sound.</li>
+                <li>Save and export your layout.</li>
+              </ul>
+              <div class="info-note">The saved layout survives a server restart. The timer starts safely in Ready instead of resuming an old session.</div>
+            </section>
+          </div>
+        </section>
+        <section class="view" id="view-guide">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow green">YOUR NEXT GREAT SESSION</span>
+              <h1>A simple <span>routine.</span>
+              </h1>
+              <p>Set it up once. Make every workout your own.</p>
+            </div>
+          </div>
+          <div class="design-grid">
+            <section class="card guide-card">
+              <h2>1. Start the studio</h2>
+              <p>Install a supported Node.js LTS release, version 22 or later. Unzip the project and run the launcher for your operating system.</p>
+              <code>node server.mjs</code>
+              <p>For a phone on your private network:</p>
+              <code>node server.mjs --lan</code>
+              <p>Keep the server running during your session.</p>
+            </section>
+            <section class="card guide-card">
+              <h2>2. Prepare your workout</h2>
+              <p>Choose a timer preset or enter your own times. Apply timer settings, edit the workout text, then save the layout.</p>
+              <p>AMRAP: 12-minute time cap. EMOM: ten 60-second rounds. TABATA: eight 20/10-second cycles, including the final rest.</p>
+              <p>Rounds count timed sections, not an athlete's completed repetitions.</p>
+            </section>
+            <section class="card guide-card">
+              <h2>3. Run the session</h2>
+              <p>The lead-in runs before the workout. Work and rest phases switch automatically. Pause preserves the remaining time.</p>
+              <p>Reset before changing timer settings. Content, colors and visibility can be adjusted during the session.</p>
+              <p>Enable sound cues on the streaming computer. Only one selected panel plays them.</p>
+            </section>
+            <section class="card guide-card">
+              <h2>4. Keep your setup</h2>
+              <p>Save the active layout on the local server. Export a portable file with its uploaded logo.</p>
+              <p>Back up the whole project folder, including <code>data/</code>. The readable source and development guide are included.</p>
+              <p>The standalone preview saves in its browser. OBS and phone control use the full server version.</p>
+            </section>
+          </div>
+        </section>
+        <footer class="app-footer">
+          <span>WODCAST STUDIO / Built for better sessions.</span>
+          <span id="saveState">Default layout / not saved yet</span>
+        </footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    </div>
+    <dialog id="pairDialog">
+      <form id="pairForm">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJXT0RDQVNUIGxvZ28iPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcng9IjIyIiBmaWxsPSIjYjBmMTViIi8+PHBhdGggZD0iTTE3IDIzaDExbDYgMjUgNi0xOWg4bDYgMTkgNy0yNWgxMEw1OSA1OUg0OGwtNS0xNy02IDE3SDI2eiIgZmlsbD0iIzE0MjAxOSIvPjxjaXJjbGUgY3g9IjYxIiBjeT0iMTciIHI9IjQiIGZpbGw9IiMxNDIwMTkiLz48L3N2Zz4K" width="48" height="48" alt="WODCAST">
+        <h2>Connect to your studio</h2>
+        <p>Find the six-digit code on the streaming computer under Connections.</p>
+        <label class="field">Pairing code<input id="pairCode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autocomplete="one-time-code">
+        </label>
+        <p class="error-text" id="pairError" role="alert">
+        </p>
+        <button class="button button-primary" type="submit">Connect</button>
+      </form>
+    </dialog>
+    <script>window.WODCAST_DEMO=true;
+window.WODCAST_ASSETS={"/assets/wodcast-mark.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJXT0RDQVNUIGxvZ28iPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcng9IjIyIiBmaWxsPSIjYjBmMTViIi8+PHBhdGggZD0iTTE3IDIzaDExbDYgMjUgNi0xOWg4bDYgMTkgNy0yNWgxMEw1OSA1OUg0OGwtNS0xNy02IDE3SDI2eiIgZmlsbD0iIzE0MjAxOSIvPjxjaXJjbGUgY3g9IjYxIiBjeT0iMTciIHI9IjQiIGZpbGw9IiMxNDIwMTkiLz48L3N2Zz4K","/assets/studio-backdrop.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIwIDEwODAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iSWxsdXN0cmF0ZWQgd29ya291dCBzdHVkaW8gcHJldmlldyI+CjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0id2FsbCIgeDI9IjAiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjMjgzYjM5Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTIyMTIwIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImZsb29yIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMzNDQzM2QiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxNzI4MjMiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0ibGlnaHQiPjxzdG9wIHN0b3AtY29sb3I9IiM3OTk4OGEiIHN0b3Atb3BhY2l0eT0iLjM1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzk5ODhhIiBzdG9wLW9wYWNpdHk9IjAiLz48L3JhZGlhbEdyYWRpZW50PjxwYXR0ZXJuIGlkPSJ0aWxlcyIgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxMDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0wIDBoMTUwdjEwMEgweiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjg4NDczIiBzdHJva2Utb3BhY2l0eT0iLjEzIi8+PC9wYXR0ZXJuPjwvZGVmcz4KPHBhdGggZmlsbD0idXJsKCN3YWxsKSIgZD0iTTAgMGgxOTIwdjcyMEgweiIvPjxwYXRoIGZpbGw9InVybCgjZmxvb3IpIiBkPSJNMCA3MjBoMTkyMHYzNjBIMHoiLz48cGF0aCBmaWxsPSJ1cmwoI3RpbGVzKSIgZD0iTTAgMGgxOTIwdjEwODBIMHoiLz48ZWxsaXBzZSBjeD0iOTUwIiBjeT0iNTAwIiByeD0iNzIwIiByeT0iNzAwIiBmaWxsPSJ1cmwoI2xpZ2h0KSIvPgo8ZyBzdHJva2U9IiMwZDE5MTYiIHN0cm9rZS13aWR0aD0iMjYiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik00MzAgNzI4VjE2NWg3MTB2NTYzTTUxMCAxODB2NTQ4TTEwNzAgMTgwdjU0OE00MzAgMTg4aDcxME01MzUgNDEwaDUwMCIvPjwvZz48ZyBmaWxsPSIjNjQ4MTc0IiBvcGFjaXR5PSIuNCI+PHBhdGggZD0iTTQwNSAxMzBoNzYwdjIwSDQwNXpNMzkwIDcwMGg3MHYzMGgtNzB6TTExMDUgNzAwaDcwdjMwaC03MHpNMTIwIDEyMmgyNzB2MTJIMTIwek0xMTgwIDEyMmgyNDB2MTJoLTI0MHoiLz48L2c+CjxnIHN0cm9rZT0iIzg1OTg4YiIgc3Ryb2tlLXdpZHRoPSI3IiBvcGFjaXR5PSIuNiI+PHBhdGggZD0iTTY5MCAxOTB2MjAwTTg3NSAxOTB2MjAwIi8+PC9nPjxnIHN0cm9rZT0iIzIwMmQyNCIgc3Ryb2tlLXdpZHRoPSIxMyIgZmlsbD0ibm9uZSI+PGNpcmNsZSBjeD0iNjkwIiBjeT0iNDE4IiByPSIyNiIvPjxjaXJjbGUgY3g9Ijg3NSIgY3k9IjQxOCIgcj0iMjYiLz48L2c+CjxnIGZpbGw9IiMxNDI1MWQiIHN0cm9rZT0iIzY2ODE2ZCIgc3Ryb2tlLW9wYWNpdHk9Ii40Ij48cGF0aCBkPSJNMTE5MCA1NjdoMTYwdjE1M2gtMTYwek0xMTkwIDU2N2w4MC00NiAxNTcgMy03NyA0M3pNMTM1MCA1NjdsNzctNDN2MTU1bC03NyA0MXoiLz48L2c+PGcgZmlsbD0iIzBjMWIxNCI+PGVsbGlwc2UgY3g9Ijg1MCIgY3k9Ijg1MSIgcng9IjM0MCIgcnk9IjI4IiBvcGFjaXR5PSIuNSIvPjxyZWN0IHg9IjYwMyIgeT0iNzc3IiB3aWR0aD0iNTEwIiBoZWlnaHQ9IjExIiByeD0iNSIvPjxyZWN0IHg9IjYxNiIgeT0iNzIwIiB3aWR0aD0iNDIiIGhlaWdodD0iMTI1IiByeD0iMTAiLz48cmVjdCB4PSI2NjgiIHk9IjczNCIgd2lkdGg9IjI4IiBoZWlnaHQ9Ijk1IiByeD0iNSIvPjxyZWN0IHg9IjEwMjQiIHk9IjcyMCIgd2lkdGg9IjQyIiBoZWlnaHQ9IjEyNSIgcng9IjEwIi8+PHJlY3QgeD0iOTg1IiB5PSI3MzQiIHdpZHRoPSIyOCIgaGVpZ2h0PSI5NSIgcng9IjUiLz48L2c+Cjx0ZXh0IHg9IjE3MCIgeT0iNDk1IiBmaWxsPSIjOWZiN2E0IiBvcGFjaXR5PSIuMTYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNzAwIiBsZXR0ZXItc3BhY2luZz0iMTgiIGZvbnQtc2l6ZT0iNTgiIHRyYW5zZm9ybT0icm90YXRlKC05MCAxNzAgNDk1KSI+V09EQ0FTVDwvdGV4dD48cGF0aCBkPSJNMCAwaDE5MjB2MTA4MEgweiIgZmlsbD0iIzA0MTQwYSIgb3BhY2l0eT0iLjE1Ii8+PC9zdmc+Cg=="};
+window.WODCAST_OVERLAY_CSS="html,body {\n  margin: 0;\n  padding: 0;\n}\n\n.overlay-page {\n  color-scheme: dark;\n  width: 100vw;\n  height: 100vh;\n  overflow: hidden;\n  background: transparent!important;\n}\n\n.overlay-host {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  background: transparent;\n}\n\n.overlay-canvas {\n  position: absolute;\n  width: 1920px;\n  height: 1080px;\n  transform-origin: top left;\n  color: var(--ov-text,#fff);\n  --ov-accent: #b0f15b;\n  --ov-panel: rgba(12,23,19,.83);\n}\n\n.overlay-canvas * {\n  box-sizing: border-box;\n}\n\n.ov-zone {\n  position: absolute;\n  background: var(--ov-panel);\n  border: 1px solid #ffffff25;\n  border-radius: 20px;\n  overflow: hidden;\n  transition: opacity .25s,visibility .25s;\n  backdrop-filter: blur(8px);\n}\n\n.zone-hidden {\n  opacity: 0;\n  visibility: hidden;\n}\n\n.field-hidden {\n  display: none!important;\n}\n\n.ov-brand {\n  padding: 26px 28px;\n  border-left: 5px solid var(--ov-accent);\n}\n\n.ov-brand-head {\n  display: flex;\n  align-items: center;\n  gap: 17px;\n  min-height: 60px;\n}\n\n.ov-logo {\n  width: 60px;\n  height: 60px;\n  object-fit: contain;\n  border-radius: 12px;\n  flex: none;\n}\n\n.ov-title {\n  font-size: var(--titleSize,38px);\n  line-height: 1.08;\n  letter-spacing: -1.5px;\n  font-weight: 900;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.ov-event {\n  font-size: var(--eventSize,24px);\n  line-height: 1.25;\n  color: var(--ov-accent);\n  letter-spacing: 3px;\n  font-weight: 800;\n  margin-top: 16px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.ov-subtitle {\n  font-size: var(--subtitleSize,18px);\n  letter-spacing: 1px;\n  font-weight: 600;\n  opacity: .75;\n  margin-top: 8px;\n  line-height: 1.4;\n}\n\n.ov-free {\n  font-size: var(--freeTextSize,20px);\n  line-height: 1.3;\n  white-space: pre-line;\n  opacity: .65;\n  margin-top: 7px;\n}\n\n.ov-timer {\n  text-align: center;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  border-top: 4px solid var(--ov-accent);\n}\n\n.ov-phase {\n  font-size: 18px;\n  font-weight: 800;\n  letter-spacing: 4px;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  justify-content: center;\n}\n\n.ov-phase i {\n  width: 9px;\n  height: 9px;\n  border-radius: 50%;\n  background: var(--ov-accent);\n}\n\n.ov-time {\n  font-size: var(--timerSize,132px);\n  font-family: \"Courier New\",Courier,monospace;\n  font-weight: 900;\n  font-variant-numeric: tabular-nums;\n  letter-spacing: -9px;\n  line-height: 1.05;\n  margin: 5px 0 4px;\n  white-space: nowrap;\n}\n\n.ov-time.has-hours {\n  font-size: calc(var(--timerSize,132px)*.72);\n  letter-spacing: -6px;\n}\n\n.ov-round {\n  font-size: 17px;\n  letter-spacing: 3px;\n  font-weight: 600;\n  opacity: .6;\n}\n\n.ov-progress {\n  height: 4px;\n  min-height: 4px;\n  background: #ffffff20;\n  width: 84%;\n  margin-top: 16px;\n  border-radius: 3px;\n  overflow: hidden;\n}\n\n.ov-progress i {\n  display: block;\n  height: 100%;\n  background: var(--ov-accent);\n  transition: width .1s linear;\n}\n\n.ov-info {\n  padding: 30px 26px;\n  display: flex;\n  flex-direction: column;\n}\n\n.ov-label {\n  font-size: 14px;\n  letter-spacing: 2px;\n  font-weight: 700;\n  opacity: .7;\n  display: flex;\n  align-items: center;\n  gap: 15px;\n  white-space: nowrap;\n}\n\n.ov-label i {\n  flex: 1;\n  background: var(--ov-accent);\n  height: 2px;\n}\n\n.ov-wod {\n  margin-top: 24px;\n  flex: 1;\n  min-height: 0;\n  overflow: hidden;\n}\n\n.ov-wod-heading {\n  color: var(--ov-accent);\n  font-size: calc(var(--textSize,28px)*1.08);\n  font-weight: 800;\n  line-height: 1.3;\n  margin-bottom: 22px;\n  white-space: pre-wrap;\n}\n\n.ov-wod-line {\n  font-size: var(--textSize,28px);\n  line-height: 1.45;\n  padding: 13px 0;\n  border-bottom: 1px solid #ffffff1a;\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n}\n\n.ov-coach {\n  display: flex;\n  gap: 14px;\n  align-items: center;\n  margin-top: 25px;\n  padding-top: 22px;\n  border-top: 1px solid #ffffff24;\n}\n\n.ov-avatar {\n  height: 48px;\n  width: 48px;\n  border: 1px solid var(--ov-accent);\n  color: var(--ov-accent);\n  display: grid;\n  place-items: center;\n  border-radius: 50%;\n  font-size: 17px;\n  flex: none;\n  font-weight: 700;\n}\n\n.ov-coach small {\n  display: block;\n  font-size: 12px;\n  letter-spacing: 2px;\n  opacity: .5;\n  margin-bottom: 6px;\n}\n\n.ov-coach strong {\n  font-size: var(--coachSize,22px);\n  display: block;\n  overflow-wrap: anywhere;\n}\n\n.ov-notes {\n  font-size: var(--notesSize,18px);\n  line-height: 1.5;\n  opacity: .6;\n  margin-top: 23px;\n  white-space: pre-line;\n  max-height: 110px;\n  overflow: hidden;\n}\n\n.ov-clock {\n  display: flex;\n  justify-content: space-between;\n  gap: 16px;\n  border-top: 1px solid #ffffff1f;\n  padding-top: 20px;\n  margin-top: 22px;\n  font-size: var(--clockSize,15px);\n  letter-spacing: 1px;\n  align-items: center;\n}\n\n.ov-clock span {\n  opacity: .45;\n  font-size: 11px;\n  letter-spacing: 2px;\n}\n\n.ov-clock time {\n  font-variant-numeric: tabular-nums;\n}\n\n.no-animation .ov-zone,.no-animation .ov-progress i {\n  transition: none;\n}\n\n@media(prefers-reduced-motion:reduce) {\n  .ov-zone,.ov-progress i {\n    transition: none;\n  }\n}\n";
+// SOURCE: model.js
+// Shared schema. Explicit field copying prevents prototype and arbitrary URL injection.
+const VERSION = '1.1.0';
+const FONT_STACKS = {
+  sans: 'Arial, Helvetica, sans-serif',
+  mono: '"Courier New", Courier, monospace',
+  serif: 'Georgia, "Times New Roman", serif'
+};
+const DEFAULT_CONFIG = {
+  version: 1,
+  content: {
+    title: 'WODCAST', subtitle: 'TRAIN TOGETHER. GET STRONGER.',
+    event: 'FRIDAY ENGINE', freeText: 'YOUR WORKOUT. LIVE.',
+    wod: '12 MIN AMRAP\n10 Air Squats\n8 Push-ups\n6 Burpees',
+    trainer: 'Coach Alex', notes: 'Move well. Find your pace.\nEvery rep counts.',
+    timeZone: 'UTC', logoUrl: '/assets/wodcast-mark.svg'
+  },
+  timer: { mode: 'countdown', durationSec: 720, prestartSec: 10, rounds: 8, workSec: 20, restSec: 10 },
+  theme: {
+    accent: '#b0f15b', textColor: '#ffffff', timerColor: '#ffffff',
+    panelOpacity: 0.83, font: 'sans', align: 'left',
+    titleSize: 38, eventSize: 24, subtitleSize: 18, freeTextSize: 20,
+    textSize: 28, coachSize: 22, notesSize: 18, clockSize: 15, timerSize: 132,
+    warningColors: true, yellowAt: 30, redAt: 10, animate: true
+  },
+  visible: { logo: true, title: true, subtitle: true, freeText: true, timer: true, round: true, wod: true, trainer: true, notes: true, clock: true },
+  zones: {
+    left: { x: 48, y: 800, width: 480, height: 232, visible: true },
+    center: { x: 690, y: 48, width: 540, height: 250, visible: true },
+    right: { x: 1484, y: 48, width: 388, height: 690, visible: true }
+  }
+};
+const PRESETS = {
+  amrap: { mode: 'countdown', durationSec: 720, prestartSec: 10, rounds: 8, workSec: 20, restSec: 10 },
+  emom: { mode: 'interval', durationSec: 600, prestartSec: 10, rounds: 10, workSec: 60, restSec: 0 },
+  tabata: { mode: 'interval', durationSec: 240, prestartSec: 10, rounds: 8, workSec: 20, restSec: 10 }
+};
+const TEXT_LIMITS = { title: 100, subtitle: 160, event: 100, freeText: 240, wod: 1600, trainer: 100, notes: 400, timeZone: 80, logoUrl: 300 };
+const THEME_RANGES = {
+  panelOpacity: [0, 1], titleSize: [18, 80], eventSize: [14, 60], subtitleSize: [12, 40],
+  freeTextSize: [12, 40], textSize: [16, 60], coachSize: [14, 40], notesSize: [12, 40],
+  clockSize: [12, 32], timerSize: [56, 200], yellowAt: [0, 600], redAt: [0, 600]
+};
+const clone = value => JSON.parse(JSON.stringify(value));
+function record(value, label) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${label} must be an object.`);
+}
+function number(value, key, min, max, integer = false) {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < min || value > max || (integer && !Number.isInteger(value))) {
+    throw new Error(`${key} must be ${integer ? 'an integer ' : ''}between ${min} and ${max}.`);
+  }
+  return value;
+}
+function boolean(value, key) {
+  if (typeof value !== 'boolean') throw new Error(`${key} must be true or false.`);
+  return value;
+}
+function choice(value, key, options) {
+  if (!options.includes(value)) throw new Error(`Invalid ${key}.`);
+  return value;
+}
+function sanitizeConfig(patch, base = DEFAULT_CONFIG) {
+  record(patch, 'Configuration');
+  if (Object.hasOwn(patch, 'version') && patch.version !== 1) throw new Error('Unsupported configuration version.');
+  const next = clone(base);
+  for (const key of ['content', 'timer', 'theme', 'visible', 'zones']) if (Object.hasOwn(patch, key)) record(patch[key], key);
+  if (patch.content) {
+    for (const [key, max] of Object.entries(TEXT_LIMITS)) if (Object.hasOwn(patch.content, key)) {
+      const value = patch.content[key];
+      if (typeof value !== 'string' || value.length > max) throw new Error(`${key} must be text with at most ${max} characters.`);
+      next.content[key] = value;
+    }
+    try { new Intl.DateTimeFormat('en-GB', { timeZone: next.content.timeZone }); }
+    catch { throw new Error('Unknown time zone.'); }
+    if (!/^(?:|\/assets\/wodcast-mark\.svg|\/uploads\/logo-[a-f\d]{24}\.(?:png|jpg|webp))$/.test(next.content.logoUrl)) throw new Error('Use the logo upload control instead of an external URL.');
+  }
+  if (patch.timer) {
+    if (Object.hasOwn(patch.timer, 'mode')) next.timer.mode = choice(patch.timer.mode, 'timer mode', ['countdown', 'stopwatch', 'interval']);
+    for (const [key, min, max] of [['durationSec', 1, 86400], ['prestartSec', 0, 120], ['rounds', 1, 200], ['workSec', 1, 3600], ['restSec', 0, 3600]]) {
+      if (Object.hasOwn(patch.timer, key)) next.timer[key] = number(patch.timer[key], key, min, max, true);
+    }
+  }
+  if (patch.theme) {
+    for (const [key, range] of Object.entries(THEME_RANGES)) if (Object.hasOwn(patch.theme, key)) next.theme[key] = number(patch.theme[key], key, ...range);
+    for (const key of ['accent', 'textColor', 'timerColor']) if (Object.hasOwn(patch.theme, key)) {
+      if (typeof patch.theme[key] !== 'string' || !/^#[a-f\d]{6}$/i.test(patch.theme[key])) throw new Error(`${key} must be a six-digit hex color.`);
+      next.theme[key] = patch.theme[key];
+    }
+    for (const key of ['warningColors', 'animate']) if (Object.hasOwn(patch.theme, key)) next.theme[key] = boolean(patch.theme[key], key);
+    if (Object.hasOwn(patch.theme, 'font')) next.theme.font = choice(patch.theme.font, 'font', Object.keys(FONT_STACKS));
+    if (Object.hasOwn(patch.theme, 'align')) next.theme.align = choice(patch.theme.align, 'alignment', ['left', 'center', 'right']);
+    if (next.theme.redAt > next.theme.yellowAt) throw new Error('Red warning must be at or below the yellow warning.');
+  }
+  if (patch.visible) for (const key of Object.keys(next.visible)) if (Object.hasOwn(patch.visible, key)) next.visible[key] = boolean(patch.visible[key], key);
+  if (patch.zones) for (const key of Object.keys(next.zones)) if (Object.hasOwn(patch.zones, key)) {
+    const zone = patch.zones[key]; record(zone, key);
+    for (const [field, min, max] of [['x', 0, 1920], ['y', 0, 1080], ['width', 180, 1920], ['height', 100, 1080]]) {
+      if (Object.hasOwn(zone, field)) next.zones[key][field] = number(zone[field], `${key}.${field}`, min, max, true);
+    }
+    if (Object.hasOwn(zone, 'visible')) next.zones[key].visible = boolean(zone.visible, `${key}.visible`);
+    const result = next.zones[key];
+    if (result.x + result.width > 1920 || result.y + result.height > 1080) throw new Error(`${key} zone must stay within 1920 x 1080.`);
+  }
+  return next;
+}
+
+
+// SOURCE: timer.js
+// A single monotonic clock owns the session. Delayed ticks catch up without drift.
+class TimerEngine {
+  constructor(settings, now = () => performance.now()) {
+    this.settings = { ...settings }; this.now = now; this.transitionId = 0; this.reset();
+  }
+  phasesForSettings() {
+    const s = this.settings, phases = [];
+    if (s.prestartSec) phases.push({ kind: 'ready', seconds: s.prestartSec, round: 0 });
+    if (s.mode === 'interval') for (let round = 1; round <= s.rounds; round++) {
+      phases.push({ kind: 'work', seconds: s.workSec, round });
+      if (s.restSec) phases.push({ kind: 'rest', seconds: s.restSec, round });
+    }
+    else phases.push({ kind: 'work', seconds: s.mode === 'stopwatch' ? Infinity : s.durationSec, round: 1 });
+    return phases;
+  }
+  configure(settings) {
+    if (['running', 'paused'].includes(this.status)) throw new Error('Reset the timer before changing its settings.');
+    this.settings = { ...settings }; this.reset();
+  }
+  reset() {
+    this.phases = this.phasesForSettings(); this.status = 'idle'; this.index = 0;
+    this.startedAt = this.now(); this.carriedMs = 0; this.transitionId++;
+  }
+  start() {
+    if (this.status === 'running') return;
+    if (this.status === 'paused') return this.resume();
+    if (this.status === 'finished') this.reset();
+    this.status = 'running'; this.startedAt = this.now(); this.transitionId++;
+  }
+  advance(at = this.now()) {
+    if (this.status !== 'running') return;
+    let elapsed = this.carriedMs + Math.max(0, at - this.startedAt), phase = this.phases[this.index];
+    while (phase && Number.isFinite(phase.seconds) && elapsed >= phase.seconds * 1000) {
+      elapsed -= phase.seconds * 1000; this.index++; this.transitionId++; phase = this.phases[this.index];
+    }
+    this.carriedMs = elapsed; this.startedAt = at;
+    if (!phase) { this.status = 'finished'; this.carriedMs = 0; }
+  }
+  pause() { if (this.status === 'running') { this.advance(); if (this.status !== 'finished') this.status = 'paused'; } }
+  resume() { if (this.status === 'paused') { this.startedAt = this.now(); this.status = 'running'; } }
+  snapshot() {
+    this.advance();
+    const s = this.settings, phase = this.status === 'idle' ? this.phases.find(p => p.kind === 'work') : this.phases[this.index];
+    const elapsedSec = this.status === 'idle' ? 0 : this.carriedMs / 1000;
+    const completed = this.phases.slice(0, this.index).reduce((sum, p) => sum + (p.kind === 'ready' ? 0 : p.seconds), 0);
+    return {
+      status: this.status, mode: s.mode,
+      phase: this.status === 'finished' ? 'finished' : this.status === 'idle' ? 'idle' : phase.kind,
+      round: this.status === 'idle' || phase?.kind === 'ready' ? 1 : phase?.round || (s.mode === 'interval' ? s.rounds : 1),
+      rounds: s.mode === 'interval' ? s.rounds : 1,
+      remainingSec: phase && Number.isFinite(phase.seconds) ? Math.max(0, phase.seconds - elapsedSec) : null,
+      elapsedSec, totalSec: s.mode === 'interval' ? s.rounds * (s.workSec + s.restSec) : s.mode === 'stopwatch' ? null : s.durationSec,
+      sessionElapsedSec: this.status === 'idle' ? 0 : completed + (phase?.kind === 'ready' ? 0 : elapsedSec),
+      transitionId: this.transitionId
+    };
+  }
+}
+
+
+// SOURCE: client.js
+
+function createClient({ readOnly = false } = {}) {
+  const demo = Boolean(window.WODCAST_DEMO), listeners = new Set();
+  const client = {
+    demo, connected: demo, authorized: demo && !readOnly, meta: null,
+    clientId: `studio-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`,
+    receivedAt: performance.now(),
+    state: { config: clone(DEFAULT_CONFIG), timer: new TimerEngine(DEFAULT_CONFIG.timer).snapshot(), dirty: false, savedAt: null, audioClientId: null },
+    on(fn) { listeners.add(fn); fn(client.state); return () => listeners.delete(fn); },
+    emit() { for (const fn of listeners) fn(client.state); },
+    accept(state) { client.state = state; client.receivedAt = performance.now(); client.emit(); }
+  };
+  async function request(path, options = {}) {
+    const response = await fetch(path, { credentials: 'same-origin', ...options });
+    const result = await response.json();
+    if (!response.ok) {
+      if (response.status === 401) { client.authorized = false; client.emit(); }
+      throw new Error(result.error || 'Request failed.');
+    }
+    return result;
+  }
+  if (!demo) {
+    const bootstrap = async () => {
+      if (readOnly) return request('/api/state');
+      client.meta = await request('/api/bootstrap'); client.authorized = client.meta.authorized; return client.meta.state;
+    };
+    client.connect = async () => {
+      const state = await bootstrap(); client.connected = true; client.accept(state);
+      const events = new EventSource('/api/events');
+      events.onopen = () => { if (!client.connected) bootstrap().then(state => { client.connected = true; client.accept(state); }).catch(() => {}); };
+      events.onmessage = event => { try { client.connected = true; client.accept(JSON.parse(event.data)); } catch { /* The next full snapshot replaces a malformed packet. */ } };
+      events.onerror = () => {
+        if (client.connected) {
+          const dt = Math.max(0, (performance.now() - client.receivedAt) / 1000), timer = client.state.timer;
+          if (timer.status === 'running') {
+            if (timer.remainingSec !== null) timer.remainingSec = Math.max(0, timer.remainingSec - dt);
+            timer.elapsedSec += dt; if (timer.phase !== 'ready') timer.sessionElapsedSec += dt;
+          }
+          client.connected = false; client.receivedAt = performance.now(); client.emit();
+        }
+      };
+      window.addEventListener('pagehide', () => events.close(), { once: true });
+    };
+    client.command = async (action, payload) => {
+      if (readOnly) throw new Error('The overlay is read-only.');
+      if (!client.connected) throw new Error('Studio is disconnected. Wait for reconnection.');
+      const result = await request('/api/command', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action, payload }) }); client.accept(result); return result;
+    };
+    client.pair = async code => {
+      await request('/api/pair', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) });
+      client.accept(await bootstrap());
+    };
+    client.uploadLogo = async file => client.accept(await request('/api/logo', { method: 'POST', headers: { 'Content-Type': file.type }, body: file }));
+    client.importPreset = async preset => client.accept(await request('/api/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(preset) }));
+    client.exportPreset = () => request('/api/export');
+  } else {
+    // The standalone preview intentionally has browser-local state, separate from OBS/LAN.
+    const assets = window.WODCAST_ASSETS || (window.WODCAST_ASSETS = {});
+    let config = clone(DEFAULT_CONFIG), saved = clone(config), savedAt = null, audioClientId = null;
+    try {
+      const stored = JSON.parse(localStorage.getItem('wodcast-preview-v1') || 'null');
+      if (stored) { config = sanitizeConfig(stored.config); saved = clone(config); savedAt = stored.savedAt; Object.assign(assets, stored.assets || {}); }
+    } catch { /* Invalid or unavailable browser storage falls back to defaults. */ }
+    const timer = new TimerEngine(config.timer);
+    const snapshot = () => ({ config, timer: timer.snapshot(), dirty: JSON.stringify(config) !== JSON.stringify(saved), savedAt, audioClientId });
+    const apply = patch => { const next = sanitizeConfig(patch, config); if (JSON.stringify(next.timer) !== JSON.stringify(config.timer)) timer.configure(next.timer); config = next; };
+    client.connect = async () => { client.meta = { local: true, pairing: null }; client.accept(snapshot()); };
+    client.command = async (action, payload) => {
+      switch (action) {
+        case 'start': timer.start(); break;
+        case 'pause': timer.pause(); break;
+        case 'resume': timer.resume(); break;
+        case 'reset': timer.reset(); break;
+        case 'configure': apply(payload); break;
+        case 'defaults': if (['running', 'paused'].includes(timer.status)) throw new Error('Reset the timer first.'); apply(DEFAULT_CONFIG); break;
+        case 'save': {
+          const timestamp = new Date().toISOString();
+          localStorage.setItem('wodcast-preview-v1', JSON.stringify({ config, assets, savedAt: timestamp }));
+          saved = clone(config); savedAt = timestamp; break;
+        }
+        case 'claimAudio': audioClientId = payload.clientId; break;
+        case 'releaseAudio': if (audioClientId === payload.clientId) audioClientId = null; break;
+        default: throw new Error('Unknown command.');
+      }
+      client.accept(snapshot()); return client.state;
+    };
+    const embedLogo = data => {
+      if (!/^data:image\/(png|jpeg|webp);base64,[a-z\d+/=]+$/i.test(data) || data.length > 2800000) throw new Error('Invalid embedded PNG, JPEG or WebP logo.');
+      const ext = data.startsWith('data:image/jpeg') ? 'jpg' : data.match(/^data:image\/(\w+)/)[1];
+      const hash = Array.from({ length: 24 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+      const path = `/uploads/logo-${hash}.${ext}`; assets[path] = data; return path;
+    };
+    client.uploadLogo = async file => {
+      const data = await new Promise((ok, reject) => { const reader = new FileReader(); reader.onload = () => ok(reader.result); reader.onerror = reject; reader.readAsDataURL(file); });
+      apply({ content: { logoUrl: embedLogo(data) } }); client.accept(snapshot());
+    };
+    client.exportPreset = async () => {
+      const preset = { type: 'wodcast-layout', version: 1, config: clone(config) };
+      if (config.content.logoUrl.startsWith('/uploads/')) preset.logoDataUrl = assets[config.content.logoUrl];
+      return preset;
+    };
+    client.importPreset = async preset => {
+      if (['running', 'paused'].includes(timer.status)) throw new Error('Reset the timer first.');
+      if (preset.type !== 'wodcast-layout' || preset.version !== 1) throw new Error('Unsupported WODCAST layout file.');
+      const next = sanitizeConfig(preset.config);
+      if (preset.logoDataUrl) next.content.logoUrl = embedLogo(preset.logoDataUrl);
+      else if (next.content.logoUrl.startsWith('/uploads/')) throw new Error('This layout is missing its embedded logo.');
+      apply(next); client.accept(snapshot());
+    };
+    const loop = setInterval(() => client.accept(snapshot()), 1000);
+    window.addEventListener('pagehide', () => clearInterval(loop), { once: true });
+  }
+  return client;
+}
+
+
+// SOURCE: renderer.js
+
+function formatTime(seconds, countUp = false) {
+  const n = Math.max(0, countUp ? Math.floor(seconds || 0) : Math.ceil(seconds || 0));
+  const h = Math.floor(n / 3600), m = Math.floor(n % 3600 / 60), s = n % 60;
+  return h ? `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}` : `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+function displayTimer(client) {
+  const timer = client.state.timer;
+  const dt = timer.status === 'running' && client.connected ? Math.max(0, (performance.now() - client.receivedAt) / 1000) : 0;
+  const countUp = timer.mode === 'stopwatch' && timer.phase !== 'ready';
+  const value = timer.status === 'finished' ? 0 : countUp ? timer.elapsedSec + dt : Math.max(0, (timer.remainingSec || 0) - dt);
+  return { value, text: formatTime(value, countUp), countUp, progress: timer.totalSec ? Math.min(1, (timer.sessionElapsedSec + (timer.phase === 'ready' ? 0 : dt)) / timer.totalSec) : 0 };
+}
+function createOverlay(container, client) {
+  container.classList.add('overlay-host');
+  container.innerHTML = `<div class="overlay-canvas">
+    <section class="ov-zone ov-brand" data-zone="left"><div class="ov-brand-head"><img class="ov-logo" data-field="logo" alt="Studio logo"><strong class="ov-title" data-field="title"></strong></div><div class="ov-event"></div><div class="ov-subtitle" data-field="subtitle"></div><div class="ov-free" data-field="freeText"></div></section>
+    <section class="ov-zone ov-timer" data-zone="center" data-field="timer"><div class="ov-phase"><i></i><span>READY</span></div><div class="ov-time">12:00</div><div class="ov-round" data-field="round"></div><div class="ov-progress"><i></i></div></section>
+    <section class="ov-zone ov-info" data-zone="right"><div class="ov-label" data-field="wod">WORKOUT OF THE DAY<i></i></div><div class="ov-wod" data-field="wod"></div><div class="ov-coach" data-field="trainer"><span class="ov-avatar">CA</span><div><small>YOUR COACH</small><strong></strong></div></div><div class="ov-notes" data-field="notes"></div><div class="ov-clock" data-field="clock"><span>LIVE SESSION</span><time></time></div></section>
+  </div>`;
+  const board = container.firstElementChild, q = selector => board.querySelector(selector);
+  const scale = () => {
+    const ratio = Math.min(container.clientWidth / 1920, container.clientHeight / 1080);
+    board.style.transform = `scale(${ratio})`; board.style.left = `${(container.clientWidth - 1920 * ratio) / 2}px`; board.style.top = `${(container.clientHeight - 1080 * ratio) / 2}px`;
+  };
+  const observer = new ResizeObserver(scale); observer.observe(container); scale();
+  let signature = '', clock;
+  function renderConfig(config) {
+    const next = JSON.stringify(config); if (signature === next) return; signature = next;
+    const { content: c, theme: t, visible, zones } = config;
+    for (const [name, zone] of Object.entries(zones)) {
+      const node = q(`[data-zone="${name}"]`); Object.assign(node.style, { left: `${zone.x}px`, top: `${zone.y}px`, width: `${zone.width}px`, height: `${zone.height}px` }); node.classList.toggle('zone-hidden', !zone.visible);
+    }
+    for (const node of board.querySelectorAll('[data-field]')) node.classList.toggle('field-hidden', !visible[node.dataset.field]);
+    board.classList.toggle('no-animation', !t.animate); board.style.fontFamily = FONT_STACKS[t.font];
+    board.style.setProperty('--ov-accent', t.accent); board.style.setProperty('--ov-text', t.textColor); board.style.setProperty('--ov-panel', `rgba(12,23,19,${t.panelOpacity})`);
+    for (const field of ['titleSize', 'eventSize', 'subtitleSize', 'freeTextSize', 'textSize', 'coachSize', 'notesSize', 'clockSize', 'timerSize']) board.style.setProperty(`--${field}`, `${t[field]}px`);
+    for (const cls of ['.ov-brand', '.ov-info']) q(cls).style.textAlign = t.align;
+    for (const cls of ['.ov-brand-head', '.ov-coach']) q(cls).style.justifyContent = t.align === 'left' ? 'flex-start' : t.align === 'center' ? 'center' : 'flex-end';
+    for (const [selector, key] of [['.ov-title', 'title'], ['.ov-event', 'event'], ['.ov-subtitle', 'subtitle'], ['.ov-free', 'freeText'], ['.ov-coach strong', 'trainer'], ['.ov-notes', 'notes']]) q(selector).textContent = c[key];
+    const logo = q('.ov-logo'), asset = window.WODCAST_ASSETS?.[c.logoUrl] || c.logoUrl;
+    if (asset) logo.src = asset; else logo.removeAttribute('src'); logo.classList.toggle('field-hidden', !visible.logo || !asset);
+    q('.ov-avatar').textContent = c.trainer.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+    q('.ov-wod').replaceChildren();
+    c.wod.split('\n').forEach((line, i) => { const node = container.ownerDocument.createElement('div'); node.className = i ? 'ov-wod-line' : 'ov-wod-heading'; node.textContent = line; q('.ov-wod').append(node); });
+    clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: c.timeZone });
+  }
+  function draw() {
+    const { config, timer } = client.state; renderConfig(config); const display = displayTimer(client);
+    q('.ov-phase span').textContent = !client.connected ? 'SYNC LOST' : timer.status === 'paused' ? 'PAUSED' : ({ idle: 'READY', ready: 'GET READY', work: 'WORK', rest: 'REST', finished: 'FINISHED' })[timer.phase];
+    let color = timer.phase === 'rest' ? '#99d9ef' : config.theme.timerColor;
+    if (config.theme.warningColors && timer.phase === 'work' && !display.countUp) color = display.value <= config.theme.redAt ? '#ff7869' : display.value <= config.theme.yellowAt ? '#f5d46b' : config.theme.accent;
+    q('.ov-time').style.color = color; q('.ov-time').textContent = display.text; q('.ov-time').classList.toggle('has-hours', display.text.split(':').length === 3);
+    q('.ov-round').textContent = timer.mode === 'interval' ? `ROUND ${timer.round} / ${timer.rounds}` : timer.mode === 'stopwatch' ? 'STOPWATCH' : 'TIME CAP';
+    q('.ov-progress i').style.width = `${display.progress * 100}%`; q('.ov-clock time').textContent = clock.format(new Date());
+  }
+  const unsubscribe = client.on(draw), interval = setInterval(draw, 100); draw();
+  return () => { clearInterval(interval); observer.disconnect(); unsubscribe(); };
+}
+
+
+// SOURCE: control-app.js
+
+const client = createClient(), $ = selector => document.querySelector(selector), $$ = selector => [...document.querySelectorAll(selector)];
+const pending = new Set(), forms = $$('form[data-editor]');
+let toastTimer, configSignature = '', lastWarning = '', audio, soundTransition = -1, readyBeep = '';
+function toast(message, error = false) {
+  $('#toast').textContent = message; $('#toast').classList.toggle('error', error); $('#toast').hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { $('#toast').hidden = true; }, error ? 6500 : 4000);
+}
+async function run(work, success) {
+  try { await work(); if (success) toast(success); return true; } catch (error) { toast(error.message || 'Action failed.', true); return false; }
+}
+function field(path, label, { type = 'text', options, rows = 2, min, max, step } = {}) {
+  const wrapper = document.createElement('label'); wrapper.className = type === 'checkbox' ? 'check-field' : `field${type === 'color' ? ' color-field' : ''}`;
+  const input = document.createElement(type === 'textarea' ? 'textarea' : type === 'select' ? 'select' : 'input'); input.name = path;
+  if (type === 'select') for (const [value, text] of options) { const option = document.createElement('option'); option.value = value; option.textContent = text; input.append(option); }
+  else if (type === 'textarea') input.rows = rows;
+  else input.type = type;
+  if (path.startsWith('content.') && TEXT_LIMITS[path.split('.')[1]]) input.maxLength = TEXT_LIMITS[path.split('.')[1]];
+  if (min !== undefined) input.min = min; if (max !== undefined) input.max = max; if (step !== undefined) input.step = step;
+  if (type === 'checkbox') wrapper.append(input, document.createTextNode(label)); else wrapper.append(document.createTextNode(label), input);
+  return wrapper;
+}
+function grid(parent, fields) { const node = document.createElement('div'); node.className = 'field-grid'; node.append(...fields); parent.append(node); return node; }
+grid($('#contentFields'), [field('content.event', 'Session title'), field('content.trainer', 'Coach name')]);
+$('#contentFields').append(field('content.wod', 'Workout of the day', { type: 'textarea', rows: 5 }), field('content.notes', 'Notes for participants', { type: 'textarea' }));
+$('#brandFields').append(field('content.title', 'Brand name'), field('content.subtitle', 'Subtitle'), field('content.freeText', 'Free text', { type: 'textarea' }), field('content.timeZone', 'Live clock time zone', { type: 'select', options: [['UTC', 'UTC'], ['Europe/Berlin', 'Berlin'], ['Europe/London', 'London'], ['Europe/Istanbul', 'Istanbul'], ['Asia/Tehran', 'Tehran']] }));
+grid($('#themeFields'), [['accent', 'Accent'], ['textColor', 'Text'], ['timerColor', 'Timer']].map(([key, label]) => field(`theme.${key}`, label, { type: 'color' })));
+grid($('#themeFields'), [field('theme.font', 'Text font', { type: 'select', options: [['sans', 'Sans serif'], ['mono', 'Monospace'], ['serif', 'Serif']] }), field('theme.align', 'Text alignment', { type: 'select', options: [['left', 'Left'], ['center', 'Center'], ['right', 'Right']] })]);
+const sizeField = (key, label) => field(`theme.${key}`, `${label} / px`, { type: 'number', min: THEME_RANGES[key][0], max: THEME_RANGES[key][1] });
+grid($('#themeFields'), [sizeField('titleSize', 'Brand title'), sizeField('textSize', 'Workout text'), sizeField('timerSize', 'Timer'), field('theme.panelOpacity', 'Panel opacity / 0 to 1', { type: 'number', min: 0, max: 1, step: .05 })]);
+const advanced = document.createElement('details'), summary = document.createElement('summary'); summary.textContent = 'Individual text sizes'; advanced.append(summary);
+grid(advanced, [['eventSize', 'Session title'], ['subtitleSize', 'Subtitle'], ['freeTextSize', 'Free text'], ['coachSize', 'Coach'], ['notesSize', 'Notes'], ['clockSize', 'Clock']].map(([key, label]) => sizeField(key, label))); $('#themeFields').append(advanced);
+$('#themeFields').append(field('theme.warningColors', 'Green / yellow / red timer warnings', { type: 'checkbox' }));
+grid($('#themeFields'), [field('theme.yellowAt', 'Yellow at / seconds', { type: 'number', min: 0, max: 600 }), field('theme.redAt', 'Red at / seconds', { type: 'number', min: 0, max: 600 })]);
+$('#themeFields').append(field('theme.animate', 'Fade whole zones in and out', { type: 'checkbox' }));
+for (const [key, title] of [['left', 'Left / Brand'], ['center', 'Center / Timer'], ['right', 'Right / Workout']]) {
+  const section = document.createElement('fieldset'); section.className = 'zone-editor'; const legend = document.createElement('legend'); legend.textContent = title; section.append(legend);
+  grid(section, [['x', 'X', 0, 1920], ['y', 'Y', 0, 1080], ['width', 'Width', 180, 1920], ['height', 'Height', 100, 1080]].map(([name, label, min, max]) => field(`zones.${key}.${name}`, label, { type: 'number', min, max, step: 1 })));
+  section.append(field(`zones.${key}.visible`, 'Show this zone', { type: 'checkbox' })); $('#zoneFields').append(section);
+}
+const visibilityNames = { logo: 'Logo', title: 'Brand name', subtitle: 'Subtitle', freeText: 'Free text', timer: 'Timer', round: 'Rounds', wod: 'Workout', trainer: 'Coach', notes: 'Notes', clock: 'Live clock' };
+for (const [key, label] of Object.entries(visibilityNames)) {
+  const wrapper = document.createElement('label'); wrapper.className = 'visibility-toggle'; wrapper.textContent = label;
+  const input = document.createElement('input'); input.type = 'checkbox'; input.dataset.visibility = key; input.setAttribute('aria-label', `Show ${label.toLowerCase()}`); wrapper.append(input); $('#visibilityFields').append(wrapper);
+  input.addEventListener('change', async () => { if (!await run(() => client.command('configure', { visible: { [key]: input.checked } }))) input.checked = client.state.config.visible[key]; });
+}
+const getPath = (object, path) => path.split('.').reduce((value, key) => value?.[key], object);
+function setPath(object, path, value) { const keys = path.split('.'); let node = object; for (const key of keys.slice(0, -1)) node = node[key] || (node[key] = {}); node[keys.at(-1)] = value; }
+function fill(form) {
+  if (pending.has(form)) return;
+  for (const input of form.querySelectorAll('[name]')) { const value = getPath(client.state.config, input.name); if (input.type === 'checkbox') input.checked = value; else input.value = value ?? ''; }
+  if (form.id === 'timerForm') { $('#durationMin').value = Math.floor(client.state.config.timer.durationSec / 60); $('#durationPart').value = client.state.config.timer.durationSec % 60; }
+}
+function timerFields() { $('#durationFields').hidden = $('#timerMode').value !== 'countdown'; $('#intervalFields').hidden = $('#timerMode').value !== 'interval'; }
+function patch(form) {
+  const result = {};
+  for (const input of form.querySelectorAll('[name]')) setPath(result, input.name, input.type === 'checkbox' ? input.checked : input.type === 'number' ? input.valueAsNumber : input.value);
+  if (form.id === 'timerForm') { result.timer = { ...client.state.config.timer, ...result.timer }; if (result.timer.mode === 'countdown') result.timer.durationSec = $('#durationMin').valueAsNumber * 60 + $('#durationPart').valueAsNumber; }
+  return result;
+}
+createOverlay($('#previewOverlay'), client);
+for (const form of forms) {
+  form.addEventListener('input', () => { pending.add(form); if (form.id === 'timerForm') timerFields(); });
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (await run(() => client.command('configure', patch(form)), 'Changes are live. Save the layout to keep them.')) { pending.delete(form); fill(form); timerFields(); }
+  });
+}
+function activate(view) {
+  if (!['studio', 'design', 'connect', 'guide'].includes(view)) view = 'studio';
+  $$('.view').forEach(node => node.classList.toggle('active', node.id === `view-${view}`));
+  $$('[data-view]').forEach(node => { node.classList.toggle('active', node.dataset.view === view); node.setAttribute('aria-current', node.dataset.view === view ? 'page' : 'false'); });
+  $('#currentView').textContent = ({ studio: 'Studio', design: 'Design', connect: 'Connections', guide: 'Quick guide' })[view];
+}
+$$('[data-view]').forEach(button => button.addEventListener('click', () => { location.hash = button.dataset.view; activate(button.dataset.view); window.scrollTo({ top: 0 }); }));
+window.addEventListener('hashchange', () => activate(location.hash.slice(1))); activate(location.hash.slice(1));
+$$('[data-background]').forEach(button => button.addEventListener('click', () => { $('#previewStage').dataset.background = button.dataset.background; $$('[data-background]').forEach(node => node.classList.toggle('active', node === button)); }));
+$$('[data-preset]').forEach(button => button.addEventListener('click', async () => {
+  if (await run(() => client.command('configure', { timer: PRESETS[button.dataset.preset] }), 'Timer preset applied. Set the workout text separately.')) { pending.delete($('#timerForm')); fill($('#timerForm')); timerFields(); }
+}));
+$('#primaryTimer').addEventListener('click', () => {
+  if (pending.has($('#timerForm'))) return toast('Apply your timer edits before starting.', true);
+  const status = client.state.timer.status; run(() => client.command(status === 'running' ? 'pause' : status === 'paused' ? 'resume' : 'start'));
+});
+function reset() { if (['running', 'paused'].includes(client.state.timer.status) && !confirm('Reset the current workout session?')) return; run(() => client.command('reset'), 'Timer reset.'); }
+$('#resetTimer').addEventListener('click', reset);
+$('#saveButton').addEventListener('click', () => { if (pending.size) return toast('Apply your open form edits before saving.', true); run(() => client.command('save'), client.demo ? 'Layout saved in this browser.' : 'Layout saved on your computer.'); });
+$('#defaultsButton').addEventListener('click', async () => {
+  if (!confirm('Restore the default logo, content, timer and positions?')) return;
+  if (await run(() => client.command('defaults'), 'Default layout restored. Save to keep it.')) { pending.clear(); forms.forEach(fill); timerFields(); }
+});
+$('#logoInput').addEventListener('change', async event => {
+  const file = event.target.files[0]; if (!file) return;
+  await run(async () => {
+    if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type) || file.size > 2097152) throw new Error('Use a PNG, JPEG or WebP logo up to 2 MB.');
+    const bitmap = await createImageBitmap(file), valid = bitmap.width <= 4096 && bitmap.height <= 4096; bitmap.close();
+    if (!valid) throw new Error('Logo must be at most 4096 x 4096 pixels.'); await client.uploadLogo(file);
+  }, 'Logo updated. Save the layout to keep it.'); event.target.value = '';
+});
+$('#removeLogo').addEventListener('click', () => run(() => client.command('configure', { content: { logoUrl: '' } }), 'Logo removed.'));
+function download(value) {
+  const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' })), anchor = document.createElement('a');
+  anchor.href = url; anchor.download = 'WODCAST-Layout.json'; document.body.append(anchor); anchor.click(); anchor.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+$('#exportButton').addEventListener('click', () => run(async () => download(await client.exportPreset()), 'Active layout exported.'));
+$('#importInput').addEventListener('change', async event => {
+  const file = event.target.files[0]; if (!file) return;
+  const ok = await run(async () => { if (file.size > 3145728) throw new Error('Layout file must be at most 3 MB.'); await client.importPreset(JSON.parse(await file.text())); }, 'Layout imported. Save to keep it.');
+  if (ok) { pending.clear(); forms.forEach(fill); timerFields(); } event.target.value = '';
+});
+$('#copyObs').addEventListener('click', () => run(async () => {
+  if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText($('#obsUrl').value);
+  else { $('#obsUrl').select(); if (!document.execCommand('copy')) throw new Error('Copy the selected URL manually.'); }
+}, 'Overlay URL copied.'));
+$('#openOverlay').addEventListener('click', event => {
+  if (!client.demo) return;
+  event.preventDefault(); const popup = window.open('', 'wodcast-preview-overlay', 'width=1280,height=720');
+  if (!popup) return toast('Allow pop-ups to open the preview overlay.', true);
+  popup.document.open(); popup.document.write(`<!doctype html><html lang="en"><head><title>WODCAST | Preview Overlay</title><style>${window.WODCAST_OVERLAY_CSS || ''}</style></head><body class="overlay-page"><div id="output" style="width:100vw;height:100vh"></div></body></html>`); popup.document.close();
+  const cleanup = createOverlay(popup.document.querySelector('#output'), client); popup.addEventListener('beforeunload', cleanup, { once: true });
+});
+function tone(frequency = 880, length = .11) {
+  if (audio?.state !== 'running') return;
+  const oscillator = audio.createOscillator(), gain = audio.createGain(); oscillator.frequency.value = frequency;
+  gain.gain.setValueAtTime(.16, audio.currentTime); gain.gain.exponentialRampToValueAtTime(.001, audio.currentTime + length);
+  oscillator.connect(gain); gain.connect(audio.destination); oscillator.start(); oscillator.stop(audio.currentTime + length);
+}
+$('#audioButton').addEventListener('click', () => run(async () => {
+  if (client.state.audioClientId === client.clientId) return client.command('releaseAudio', { clientId: client.clientId });
+  const Audio = window.AudioContext || window.webkitAudioContext; if (!Audio) throw new Error('This browser does not support audio cues.');
+  audio ||= new Audio(); await audio.resume(); soundTransition = client.state.timer.transitionId; await client.command('claimAudio', { clientId: client.clientId }); tone();
+}));
+function render(state) {
+  const { config, timer } = state, allowed = client.connected && client.authorized, locked = ['running', 'paused'].includes(timer.status);
+  $('#demoBanner').hidden = !client.demo; $('#offlineBanner').hidden = client.connected || !client.meta;
+  const pill = $('#connectionPill'); pill.classList.toggle('online', client.connected); pill.classList.toggle('offline', !client.connected); pill.replaceChildren(document.createElement('i'), document.createTextNode(client.demo ? 'Browser preview' : client.connected ? 'Studio connected' : 'Disconnected'));
+  if (configSignature !== JSON.stringify(config)) {
+    configSignature = JSON.stringify(config); forms.forEach(fill); timerFields();
+    $$('[data-visibility]').forEach(input => { input.checked = config.visible[input.dataset.visibility]; });
+    const url = config.content.logoUrl; if (url) $('#logoPreview').src = window.WODCAST_ASSETS?.[url] || url; else $('#logoPreview').removeAttribute('src'); $('#logoPreview').hidden = !url;
+    $('#sidebarEvent').textContent = config.content.event || config.content.title;
+    $('#sidebarMode').textContent = timer.mode === 'interval' ? `${config.timer.rounds} ROUNDS / ${config.timer.workSec}:${config.timer.restSec} SEC` : timer.mode === 'stopwatch' ? 'STOPWATCH' : `TIME CAP / ${Math.round(config.timer.durationSec / 60)} MIN`;
+    $$('[data-preset]').forEach(button => button.classList.toggle('active', JSON.stringify(config.timer) === JSON.stringify(PRESETS[button.dataset.preset])));
+  }
+  $$('form[data-editor] input, form[data-editor] select, form[data-editor] textarea, form[data-editor] button, [data-visibility], #logoInput, #removeLogo, #exportButton, #importInput, #saveButton, #defaultsButton, #audioButton, #primaryTimer, #resetTimer').forEach(node => { node.disabled = !allowed; });
+  $$('#timerForm input, #timerForm select, #timerForm button, [data-preset]').forEach(node => { node.disabled = !allowed || locked; });
+  $('#defaultsButton').disabled = !allowed || locked; $('#importInput').disabled = !allowed || locked;
+  $('#primaryTimer span').textContent = ({ idle: 'Start workout', running: 'Pause workout', paused: 'Resume workout', finished: 'Start again' })[timer.status];
+  $('#primaryTimer use').setAttribute('href', timer.status === 'running' ? '#icon-pause' : '#icon-play');
+  $('#timerStatus').textContent = ({ idle: 'READY', running: 'RUNNING', paused: 'PAUSED', finished: 'FINISHED' })[timer.status];
+  $('#summaryStatus').textContent = !client.connected ? 'Connection lost' : ({ idle: 'Ready when you are', running: 'Workout in progress', paused: 'Workout paused', finished: 'Workout completed' })[timer.status];
+  $('#timerHint').textContent = locked ? 'Reset before changing timer settings.' : 'Set the times before starting.';
+  $('#saveState').textContent = state.dirty ? 'Live changes / not saved yet' : state.savedAt ? `Saved / ${new Date(state.savedAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}` : 'Default layout / not saved yet';
+  const ownsAudio = state.audioClientId === client.clientId; $('#audioButton').classList.toggle('enabled', ownsAudio); $('#audioButton span').textContent = ownsAudio ? 'Sound cues enabled here' : state.audioClientId ? 'Move sound cues here' : 'Enable sound cues';
+  if (state.storageWarning && state.storageWarning !== lastWarning) { lastWarning = state.storageWarning; toast(state.storageWarning, true); }
+  if (client.demo) $('#pairingInfo').textContent = 'Phone control is available in the complete local-server version.';
+  else if (client.meta) {
+    $('#obsUrl').value = new URL('/overlay.html', location.href).href;
+    const info = $('#pairingInfo'), pairing = client.meta.pairing, signature = JSON.stringify(pairing);
+    if (info.dataset.signature !== signature) {
+      info.dataset.signature = signature; info.replaceChildren();
+      if (pairing?.enabled) {
+        const code = document.createElement('div'); code.className = 'pair-code'; code.textContent = pairing.code; info.append(code);
+        for (const url of pairing.urls) { const node = document.createElement('div'); node.className = 'pair-url'; node.textContent = url; info.append(node); }
+        if (!pairing.urls.length) info.append(document.createTextNode('No network address found. Check the computer network connection.'));
+      } else { const text = document.createElement('p'); text.className = 'muted'; text.textContent = client.meta.local ? 'Restart with the LAN launcher to enable phone access.' : 'This device is connected. Find the pairing code on the streaming computer.'; info.append(text); }
+    }
+  }
+  if (client.meta && client.connected && !client.authorized && !$('#pairDialog').open) $('#pairDialog').showModal();
+  if (client.authorized && $('#pairDialog').open) $('#pairDialog').close();
+}
+client.on(render);
+$('#pairDialog').addEventListener('cancel', event => event.preventDefault());
+$('#pairForm').addEventListener('submit', async event => { event.preventDefault(); $('#pairError').textContent = ''; try { await client.pair($('#pairCode').value); toast('Connected to your studio.'); } catch (error) { $('#pairError').textContent = error.message; } });
+document.addEventListener('keydown', event => {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || !client.connected || !client.authorized || $('#pairDialog').open || event.target.closest('input,textarea,select,button,a,[contenteditable="true"]')) return;
+  if (event.code === 'Space') { event.preventDefault(); $('#primaryTimer').click(); } else if (event.key.toLowerCase() === 'r') { event.preventDefault(); reset(); }
+});
+setInterval(() => {
+  const display = displayTimer(client), timer = client.state.timer;
+  $('#controlTime').textContent = display.text; $('#controlTime').classList.toggle('has-hours', display.text.split(':').length === 3);
+  $('#controlPhase').textContent = timer.status === 'paused' ? 'Paused / time preserved' : `${timer.mode === 'interval' ? `Round ${timer.round} / ${timer.rounds}` : timer.mode === 'stopwatch' ? 'Stopwatch' : 'Countdown'} / ${({ idle: 'ready to start', ready: 'get ready', work: 'work', rest: 'rest', finished: 'complete' })[timer.phase]}`;
+  if (client.connected && client.authorized && client.state.audioClientId === client.clientId) {
+    if (soundTransition !== timer.transitionId) {
+      if (soundTransition !== -1 && timer.status === 'running' && ['work', 'rest'].includes(timer.phase)) tone(timer.phase === 'work' ? 880 : 550);
+      if (soundTransition !== -1 && timer.status === 'finished') { tone(980, .22); setTimeout(() => tone(980, .22), 300); } soundTransition = timer.transitionId;
+    }
+    const n = Math.ceil(display.value), key = `${timer.transitionId}:${n}`;
+    if (timer.phase === 'ready' && timer.status === 'running' && n > 0 && n <= 3 && readyBeep !== key) { tone(660, .07); readyBeep = key; }
+  }
+}, 100);
+async function connect() { try { await client.connect(); } catch { client.connected = false; client.emit(); toast('Studio is not reachable. Start the server; reconnection is automatic.', true); setTimeout(connect, 3000); } }
+connect();
+</script>
+  </body>
+</html>

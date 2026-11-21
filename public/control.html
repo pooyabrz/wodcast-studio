@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Your local workout studio: live timers, custom branding and a transparent streaming overlay.">
+    <title>WODCAST | Workout Studio</title>
+    <link rel="icon" href="/assets/wodcast-mark.svg">
+    <link rel="stylesheet" href="/css/studio.css">
+    <link rel="stylesheet" href="/css/overlay.css">
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true">
+      <defs>
+        <symbol id="icon-grid" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24">
+          <path d="M4 5h16M4 12h16M4 19h16"/>
+          <circle cx="8" cy="5" r="2"/>
+          <circle cx="16" cy="12" r="2"/>
+          <circle cx="10" cy="19" r="2"/>
+        </symbol>
+        <symbol id="icon-link" viewBox="0 0 24 24">
+          <path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-2 2M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l2-2"/>
+        </symbol>
+        <symbol id="icon-help" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M9 9a3 3 0 016 0c0 2-3 2-3 4M12 17h.01"/>
+        </symbol>
+        <symbol id="icon-open" viewBox="0 0 24 24">
+          <path d="M14 3h7v7M21 3l-9 9M10 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-5"/>
+        </symbol>
+        <symbol id="icon-save" viewBox="0 0 24 24">
+          <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h12l4 4v12a2 2 0 01-2 2zM7 3v6h10V3M7 21v-8h10v8"/>
+        </symbol>
+        <symbol id="icon-reset" viewBox="0 0 24 24">
+          <path d="M3 4v6h6M3 10a9 9 0 119 11"/>
+        </symbol>
+        <symbol id="icon-play" viewBox="0 0 24 24">
+          <path d="M8 5l11 7-11 7z"/>
+        </symbol>
+        <symbol id="icon-pause" viewBox="0 0 24 24">
+          <path d="M8 5v14M16 5v14"/>
+        </symbol>
+        <symbol id="icon-audio" viewBox="0 0 24 24">
+          <path d="M11 5L6 9H3v6h3l5 4zM15 8a6 6 0 010 8M18 5a10 10 0 010 14"/>
+        </symbol>
+        <symbol id="icon-copy" viewBox="0 0 24 24">
+          <rect x="8" y="8" width="13" height="13" rx="2"/>
+          <path d="M16 8V3H3v13h5"/>
+        </symbol>
+      </defs>
+    </svg>
+    <aside class="sidebar">
+      <a class="wordmark" href="#studio">
+        <img src="/assets/wodcast-mark.svg" alt="WODCAST">
+        <span>WODCAST<small>WORKOUT STUDIO</small>
+        </span>
+      </a>
+      <div class="nav-caption">YOUR WORKSPACE</div>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-view="studio">
+          <svg>
+            <use href="#icon-grid"/>
+          </svg>Studio<span class="nav-dot">
+          </span>
+        </button>
+        <button class="nav-item" data-view="design">
+          <svg>
+            <use href="#icon-settings"/>
+          </svg>Design</button>
+        <button class="nav-item" data-view="connect">
+          <svg>
+            <use href="#icon-link"/>
+          </svg>Connections</button>
+        <button class="nav-item" data-view="guide">
+          <svg>
+            <use href="#icon-help"/>
+          </svg>Quick guide</button>
+      </nav>
+      <div class="session-card">
+        <span class="eyebrow">CURRENT SESSION</span>
+        <strong id="sidebarEvent">FRIDAY ENGINE</strong>
+        <span id="sidebarMode">TIME CAP / 12 MIN</span>
+        <div class="session-line">
+          <i>
+          </i>
+        </div>
+        <small>One session.<br>Everyone in sync.</small>
+      </div>
+      <div class="sidebar-footer">
+        <span class="local-badge">
+          <i>
+          </i>LOCAL FIRST</span>
+        <small>Your code. Your studio.<br>Ready for your next session.</small>
+        <span class="version">VERSION 1.1</span>
+      </div>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace <span>/</span>
+          <strong id="currentView">Studio</strong>
+        </div>
+        <div class="topbar-actions">
+          <span class="connection-pill" id="connectionPill">
+            <i>
+            </i>Connecting</span>
+          <button class="button button-small" id="saveButton">
+            <svg>
+              <use href="#icon-save"/>
+            </svg>Save layout</button>
+        </div>
+      </header>
+      <main>
+        <div class="demo-banner" id="demoBanner" hidden>
+          <strong>INTERACTIVE PREVIEW</strong>
+          <span>This file runs in your browser. Start the complete project to connect OBS, Zoom or a phone.</span>
+        </div>
+        <div class="offline-banner" id="offlineBanner" hidden>Connection lost. The display is frozen until the studio reconnects.</div>
+        <section class="view active" id="view-studio">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow green">TRAIN TOGETHER. GET STRONGER.</span>
+              <h1>Your workout. <span>Live.</span>
+              </h1>
+              <p>Everything you need for a great session.</p>
+            </div>
+            <a class="button button-outline" id="openOverlay" href="/overlay.html" target="_blank" rel="noopener">
+              <svg>
+                <use href="#icon-open"/>
+              </svg>Open overlay</a>
+          </div>
+          <div class="studio-grid">
+            <section class="card preview-card">
+              <div class="card-heading">
+                <h2>Live preview</h2>
+                <span class="preview-label">
+                  <i>
+                  </i>OVERLAY / 1920 x 1080</span>
+              </div>
+              <div class="preview-stage" id="previewStage">
+                <div id="previewOverlay">
+                </div>
+                <span class="preview-caption">PREVIEW BACKGROUND / USE YOUR CAMERA IN OBS</span>
+              </div>
+              <div class="preview-footer">
+                <div class="background-switch" aria-label="Preview background">
+                  <button class="active" data-background="studio">Studio</button>
+                  <button data-background="dark">Dark</button>
+                  <button data-background="light">Light</button>
+                  <button data-background="transparent">Transparent</button>
+                </div>
+                <span class="safe-label">16:9 / Transparent output</span>
+              </div>
+            </section>
+            <section class="card timer-card">
+              <div class="card-heading">
+                <h2>Timer controls</h2>
+                <span class="tiny-badge" id="timerStatus">READY</span>
+              </div>
+              <div class="control-time" id="controlTime">12:00</div>
+              <div class="control-phase" id="controlPhase">Countdown / ready to start</div>
+              <div class="timer-buttons">
+                <button class="button button-primary" id="primaryTimer">
+                  <svg>
+                    <use href="#icon-play"/>
+                  </svg>
+                  <span>Start workout</span>
+                </button>
+                <button class="button button-icon" id="resetTimer" title="Reset timer" aria-label="Reset timer">
+                  <svg>
+                    <use href="#icon-reset"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="preset-row">
+                <button class="preset active" data-preset="amrap">AMRAP<small>12 MIN</small>
+                </button>
+                <button class="preset" data-preset="emom">EMOM<small>10 ROUNDS</small>
+                </button>
+                <button class="preset" data-preset="tabata">TABATA<small>20 / 10</small>
+                </button>
+              </div>
+              <form id="timerForm" data-editor>
+                <label class="field">Timer mode<select name="timer.mode" id="timerMode">
+                    <option value="countdown">Countdown / Time cap</option>
+                    <option value="stopwatch">Stopwatch</option>
+                    <option value="interval">Intervals / Work and rest</option>
+                  </select>
+                </label>
+                <div class="field-row" id="durationFields">
+                  <label class="field">Minutes<input type="number" id="durationMin" min="0" max="1440" step="1" value="12">
+                  </label>
+                  <label class="field">Seconds<input type="number" id="durationPart" min="0" max="59" step="1" value="0">
+                  </label>
+                </div>
+                <div id="intervalFields" hidden>
+                  <div class="field-row">
+                    <label class="field">Work / seconds<input name="timer.workSec" type="number" min="1" max="3600">
+                    </label>
+                    <label class="field">Rest / seconds<input name="timer.restSec" type="number" min="0" max="3600">
+                    </label>
+                  </div>
+                  <label class="field">Rounds<input name="timer.rounds" type="number" min="1" max="200">
+                  </label>
+                </div>
+                <div class="timer-form-footer">
+                  <label class="field">Lead-in / seconds<input name="timer.prestartSec" type="number" min="0" max="120">
+                  </label>
+                  <button class="button button-outline button-small" type="submit">Apply timer</button>
+                </div>
+                <p class="micro-copy" id="timerHint">Set the times before starting.</p>
+              </form>
+              <button class="audio-button" id="audioButton">
+                <svg>
+                  <use href="#icon-audio"/>
+                </svg>
+                <span>Enable sound cues</span>
+                <i>
+                </i>
+              </button>
+            </section>
+          </div>
+          <div class="below-grid">
+            <section class="card">
+              <div class="card-heading">
+                <h2>Workout and coach</h2>
+                <span class="kicker">YOUR SESSION</span>
+              </div>
+              <form id="contentForm" data-editor>
+                <div id="contentFields">
+                </div>
+                <div class="form-footer">
+                  <span class="micro-copy">Edits go live when you apply them.</span>
+                  <button class="button button-dark button-small" type="submit">Apply content</button>
+                </div>
+              </form>
+            </section>
+            <section class="card">
+              <div class="card-heading">
+                <h2>Show in the overlay</h2>
+                <span class="kicker">LIVE CONTROLS</span>
+              </div>
+              <p class="muted">Keep the focus on what matters.</p>
+              <div class="visibility-grid" id="visibilityFields">
+              </div>
+              <div class="session-summary">
+                <div>
+                  <span class="eyebrow">SESSION STATUS</span>
+                  <strong id="summaryStatus">Ready when you are</strong>
+                </div>
+                <span class="summary-arrow">&#8599;</span>
+              </div>
+              <div class="shortcuts">
+                <kbd>Space</kbd>Start / pause<kbd>R</kbd>Reset</div>
+              <p class="micro-copy">Shortcuts work in this panel, outside text fields.</p>
+            </section>
+          </div>
+        </section>
+        <section class="view" id="view-design">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow green">YOUR BRAND, ON SCREEN</span>
+              <h1>Make it <span>yours.</span>
+              </h1>
+              <p>Design a clear, confident look for your studio.</p>
+            </div>
+            <button class="button button-outline" id="defaultsButton">
+              <svg>
+                <use href="#icon-reset"/>
+              </svg>Restore defaults</button>
+          </div>
+          <div class="design-grid">
+            <div class="design-stack">
+              <section class="card">
+                <div class="card-heading">
+                  <h2>Logo and identity</h2>
+                  <span class="kicker">LEFT ZONE</span>
+                </div>
+                <div class="logo-upload">
+                  <div class="logo-preview">
+                    <img id="logoPreview" src="/assets/wodcast-mark.svg" alt="Current studio logo">
+                  </div>
+                  <div>
+                    <strong>Your studio. Your signature.</strong>
+                    <p>PNG, JPEG or WebP / up to 2 MB</p>
+                    <div class="inline-buttons">
+                      <label class="button button-outline button-small file-button">Upload logo<input type="file" id="logoInput" accept="image/png,image/jpeg,image/webp" aria-label="Upload logo">
+                      </label>
+                      <button class="text-button" id="removeLogo">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <form id="brandForm" data-editor>
+                  <div id="brandFields">
+                  </div>
+                  <div class="form-footer">
+                    <span class="micro-copy">Short, readable text works best on video.</span>
+                    <button class="button button-dark button-small" type="submit">Apply identity</button>
+                  </div>
+                </form>
+              </section>
+              <section class="card backup-card">
+                <h2>Take your layout with you.</h2>
+                <p class="muted">Export your settings and uploaded logo in one file.</p>
+                <div class="inline-buttons">
+                  <button class="button button-outline button-small" id="exportButton">Export layout</button>
+                  <label class="button button-dark button-small file-button">Import layout<input id="importInput" type="file" accept="application/json,.json" aria-label="Import layout">
+                  </label>
+                </div>
+              </section>
+            </div>
+            <section class="card">
+              <div class="card-heading">
+                <h2>Colors and typography</h2>
+                <span class="kicker">ALL ZONES</span>
+              </div>
+              <form id="themeForm" data-editor>
+                <div id="themeFields">
+                </div>
+                <div class="form-footer">
+                  <span class="micro-copy">Sizes refer to the 1080p canvas.</span>
+                  <button class="button button-dark button-small" type="submit">Apply design</button>
+                </div>
+              </form>
+            </section>
+          </div>
+          <section class="card zones-card">
+            <div class="card-heading">
+              <h2>Position and size</h2>
+              <span class="kicker">1920 x 1080 CANVAS</span>
+            </div>
+            <p class="muted">Coordinates scale with the video. Give longer text enough space.</p>
+            <form id="zonesForm" data-editor>
+              <div class="zones-grid" id="zoneFields">
+              </div>
+              <div class="form-footer">
+                <span class="micro-copy">X and Y start at the upper-left corner.</span>
+                <button class="button button-dark button-small" type="submit">Apply positions</button>
+              </div>
+            </form>
+          </section>
+        </section>
+        <section class="view" id="view-connect">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow green">FROM STUDIO TO STREAM</span>
+              <h1>Connected. <span>Ready.</span>
+              </h1>
+              <p>Your camera, your overlay and your audience.</p>
+            </div>
+            <span class="chip">LOCAL NETWORK</span>
+          </div>
+          <div class="design-grid">
+            <section class="card integration-card">
+              <span class="step-number">01</span>
+              <h2>OBS Browser Source</h2>
+              <p>Add your camera first, then place the transparent overlay above it.</p>
+              <label class="field">Overlay URL<div class="copy-field">
+                  <input id="obsUrl" readonly value="http://127.0.0.1:8787/overlay.html">
+                  <button type="button" class="button button-icon" id="copyObs" aria-label="Copy overlay URL">
+                    <svg>
+                      <use href="#icon-copy"/>
+                    </svg>
+                  </button>
+                </div>
+              </label>
+              <div class="spec-chips">
+                <span>1920 x 1080</span>
+                <span>30 FPS</span>
+                <span>Transparent</span>
+              </div>
+              <ol>
+                <li>In OBS, add a <strong>Browser Source</strong>.</li>
+                <li>Paste the URL and set the source dimensions.</li>
+                <li>Keep it above the camera in your source list.</li>
+                <li>Disable source shutdown when hidden.</li>
+              </ol>
+            </section>
+            <section class="card integration-card">
+              <span class="step-number">02</span>
+              <h2>Zoom Virtual Camera</h2>
+              <p>Send the complete OBS scene to your meeting as a camera.</p>
+              <ol>
+                <li>Select <strong>Start Virtual Camera</strong> in OBS.</li>
+                <li>Choose <strong>OBS Virtual Camera</strong> in Zoom.</li>
+                <li>Select your microphone in Zoom.</li>
+                <li>Share computer audio separately for sound cues.</li>
+              </ol>
+              <div class="info-note">1080p is the overlay canvas size. Zoom's received resolution depends on the account, settings and connection.</div>
+            </section>
+            <section class="card integration-card">
+              <span class="step-number">03</span>
+              <h2>Your phone as a remote</h2>
+              <p>Connect your phone and computer to the same trusted Wi-Fi network.</p>
+              <div id="pairingInfo">
+              </div>
+              <div class="info-note">Use the LAN launcher to enable phone access. Enter the computer's address on the phone, then pair with the six-digit code.</div>
+            </section>
+            <section class="card integration-card">
+              <span class="step-number">04</span>
+              <h2>Before going live</h2>
+              <ul class="checklist">
+                <li>Try start, pause, resume and reset.</li>
+                <li>Check logo and text over your camera.</li>
+                <li>Join Zoom from a second device.</li>
+                <li>Verify the received picture and sound.</li>
+                <li>Save and export your layout.</li>
+              </ul>
+              <div class="info-note">The saved layout survives a server restart. The timer starts safely in Ready instead of resuming an old session.</div>
+            </section>
+          </div>
+        </section>
+        <section class="view" id="view-guide">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow green">YOUR NEXT GREAT SESSION</span>
+              <h1>A simple <span>routine.</span>
+              </h1>
+              <p>Set it up once. Make every workout your own.</p>
+            </div>
+          </div>
+          <div class="design-grid">
+            <section class="card guide-card">
+              <h2>1. Start the studio</h2>
+              <p>Install a supported Node.js LTS release, version 22 or later. Unzip the project and run the launcher for your operating system.</p>
+              <code>node server.mjs</code>
+              <p>For a phone on your private network:</p>
+              <code>node server.mjs --lan</code>
+              <p>Keep the server running during your session.</p>
+            </section>
+            <section class="card guide-card">
+              <h2>2. Prepare your workout</h2>
+              <p>Choose a timer preset or enter your own times. Apply timer settings, edit the workout text, then save the layout.</p>
+              <p>AMRAP: 12-minute time cap. EMOM: ten 60-second rounds. TABATA: eight 20/10-second cycles, including the final rest.</p>
+              <p>Rounds count timed sections, not an athlete's completed repetitions.</p>
+            </section>
+            <section class="card guide-card">
+              <h2>3. Run the session</h2>
+              <p>The lead-in runs before the workout. Work and rest phases switch automatically. Pause preserves the remaining time.</p>
+              <p>Reset before changing timer settings. Content, colors and visibility can be adjusted during the session.</p>
+              <p>Enable sound cues on the streaming computer. Only one selected panel plays them.</p>
+            </section>
+            <section class="card guide-card">
+              <h2>4. Keep your setup</h2>
+              <p>Save the active layout on the local server. Export a portable file with its uploaded logo.</p>
+              <p>Back up the whole project folder, including <code>data/</code>. The readable source and development guide are included.</p>
+              <p>The standalone preview saves in its browser. OBS and phone control use the full server version.</p>
+            </section>
+          </div>
+        </section>
+        <footer class="app-footer">
+          <span>WODCAST STUDIO / Built for better sessions.</span>
+          <span id="saveState">Default layout / not saved yet</span>
+        </footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    </div>
+    <dialog id="pairDialog">
+      <form id="pairForm">
+        <img src="/assets/wodcast-mark.svg" width="48" height="48" alt="WODCAST">
+        <h2>Connect to your studio</h2>
+        <p>Find the six-digit code on the streaming computer under Connections.</p>
+        <label class="field">Pairing code<input id="pairCode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autocomplete="one-time-code">
+        </label>
+        <p class="error-text" id="pairError" role="alert">
+        </p>
+        <button class="button button-primary" type="submit">Connect</button>
+      </form>
+    </dialog>
+    <script type="module" src="/js/control-app.js">
+    </script>
+  </body>
+</html>

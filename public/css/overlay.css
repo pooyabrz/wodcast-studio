@@ -1,0 +1,305 @@
+html,body {
+  margin: 0;
+  padding: 0;
+}
+
+.overlay-page {
+  color-scheme: dark;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent!important;
+}
+
+.overlay-host {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.overlay-canvas {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  color: var(--ov-text,#fff);
+  --ov-accent: #b0f15b;
+  --ov-panel: rgba(12,23,19,.83);
+}
+
+.overlay-canvas * {
+  box-sizing: border-box;
+}
+
+.ov-zone {
+  position: absolute;
+  background: var(--ov-panel);
+  border: 1px solid #ffffff25;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: opacity .25s,visibility .25s;
+  backdrop-filter: blur(8px);
+}
+
+.zone-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.field-hidden {
+  display: none!important;
+}
+
+.ov-brand {
+  padding: 26px 28px;
+  border-left: 5px solid var(--ov-accent);
+}
+
+.ov-brand-head {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  min-height: 60px;
+}
+
+.ov-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 12px;
+  flex: none;
+}
+
+.ov-title {
+  font-size: var(--titleSize,38px);
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ov-event {
+  font-size: var(--eventSize,24px);
+  line-height: 1.25;
+  color: var(--ov-accent);
+  letter-spacing: 3px;
+  font-weight: 800;
+  margin-top: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ov-subtitle {
+  font-size: var(--subtitleSize,18px);
+  letter-spacing: 1px;
+  font-weight: 600;
+  opacity: .75;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.ov-free {
+  font-size: var(--freeTextSize,20px);
+  line-height: 1.3;
+  white-space: pre-line;
+  opacity: .65;
+  margin-top: 7px;
+}
+
+.ov-timer {
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: 4px solid var(--ov-accent);
+}
+
+.ov-phase {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.ov-phase i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ov-accent);
+}
+
+.ov-time {
+  font-size: var(--timerSize,132px);
+  font-family: "Courier New",Courier,monospace;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -9px;
+  line-height: 1.05;
+  margin: 5px 0 4px;
+  white-space: nowrap;
+}
+
+.ov-time.has-hours {
+  font-size: calc(var(--timerSize,132px)*.72);
+  letter-spacing: -6px;
+}
+
+.ov-round {
+  font-size: 17px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  opacity: .6;
+}
+
+.ov-progress {
+  height: 4px;
+  min-height: 4px;
+  background: #ffffff20;
+  width: 84%;
+  margin-top: 16px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ov-progress i {
+  display: block;
+  height: 100%;
+  background: var(--ov-accent);
+  transition: width .1s linear;
+}
+
+.ov-info {
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ov-label {
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  opacity: .7;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  white-space: nowrap;
+}
+
+.ov-label i {
+  flex: 1;
+  background: var(--ov-accent);
+  height: 2px;
+}
+
+.ov-wod {
+  margin-top: 24px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ov-wod-heading {
+  color: var(--ov-accent);
+  font-size: calc(var(--textSize,28px)*1.08);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 22px;
+  white-space: pre-wrap;
+}
+
+.ov-wod-line {
+  font-size: var(--textSize,28px);
+  line-height: 1.45;
+  padding: 13px 0;
+  border-bottom: 1px solid #ffffff1a;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.ov-coach {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 25px;
+  padding-top: 22px;
+  border-top: 1px solid #ffffff24;
+}
+
+.ov-avatar {
+  height: 48px;
+  width: 48px;
+  border: 1px solid var(--ov-accent);
+  color: var(--ov-accent);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 17px;
+  flex: none;
+  font-weight: 700;
+}
+
+.ov-coach small {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: .5;
+  margin-bottom: 6px;
+}
+
+.ov-coach strong {
+  font-size: var(--coachSize,22px);
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.ov-notes {
+  font-size: var(--notesSize,18px);
+  line-height: 1.5;
+  opacity: .6;
+  margin-top: 23px;
+  white-space: pre-line;
+  max-height: 110px;
+  overflow: hidden;
+}
+
+.ov-clock {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid #ffffff1f;
+  padding-top: 20px;
+  margin-top: 22px;
+  font-size: var(--clockSize,15px);
+  letter-spacing: 1px;
+  align-items: center;
+}
+
+.ov-clock span {
+  opacity: .45;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.ov-clock time {
+  font-variant-numeric: tabular-nums;
+}
+
+.no-animation .ov-zone,.no-animation .ov-progress i {
+  transition: none;
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .ov-zone,.ov-progress i {
+    transition: none;
+  }
+}

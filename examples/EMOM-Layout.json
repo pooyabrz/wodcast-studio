@@ -1,0 +1,82 @@
+{
+  "type": "wodcast-layout",
+  "version": 1,
+  "config": {
+    "version": 1,
+    "content": {
+      "title": "WODCAST",
+      "subtitle": "TRAIN TOGETHER. GET STRONGER.",
+      "event": "FRIDAY ENGINE",
+      "freeText": "YOUR WORKOUT. LIVE.",
+      "wod": "10 MIN EMOM\nYour exercise here\nStart a new round each minute",
+      "trainer": "Coach Alex",
+      "notes": "Move well. Find your pace.\nEvery rep counts.",
+      "timeZone": "UTC",
+      "logoUrl": "/assets/wodcast-mark.svg"
+    },
+    "timer": {
+      "mode": "interval",
+      "durationSec": 600,
+      "prestartSec": 10,
+      "rounds": 10,
+      "workSec": 60,
+      "restSec": 0
+    },
+    "theme": {
+      "accent": "#b0f15b",
+      "textColor": "#ffffff",
+      "timerColor": "#ffffff",
+      "panelOpacity": 0.83,
+      "font": "sans",
+      "align": "left",
+      "titleSize": 38,
+      "eventSize": 24,
+      "subtitleSize": 18,
+      "freeTextSize": 20,
+      "textSize": 28,
+      "coachSize": 22,
+      "notesSize": 18,
+      "clockSize": 15,
+      "timerSize": 132,
+      "warningColors": true,
+      "yellowAt": 30,
+      "redAt": 10,
+      "animate": true
+    },
+    "visible": {
+      "logo": true,
+      "title": true,
+      "subtitle": true,
+      "freeText": true,
+      "timer": true,
+      "round": true,
+      "wod": true,
+      "trainer": true,
+      "notes": true,
+      "clock": true
+    },
+    "zones": {
+      "left": {
+        "x": 48,
+        "y": 800,
+        "width": 480,
+        "height": 232,
+        "visible": true
+      },
+      "center": {
+        "x": 690,
+        "y": 48,
+        "width": 540,
+        "height": 250,
+        "visible": true
+      },
+      "right": {
+        "x": 1484,
+        "y": 48,
+        "width": 388,
+        "height": 690,
+        "visible": true
+      }
+    }
+  }
+}

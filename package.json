@@ -1,0 +1,18 @@
+{
+  "name": "wodcast-studio",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first workout control studio and transparent HTML5 overlay for OBS and Zoom",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server.mjs",
+    "start:lan": "node server.mjs --lan",
+    "test": "node --test",
+    "check": "node scripts/check.mjs",
+    "build:preview": "node scripts/build-preview.mjs",
+    "test:browser": "node scripts/browser-smoke.mjs",
+    "verify": "npm run build:preview && npm run check && npm test"
+  }
+}
